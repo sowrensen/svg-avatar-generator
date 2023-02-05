@@ -60,7 +60,7 @@
                 "Sowren\\SvgAvatarGenerator\\SvgAvatarGeneratorServiceProvider"
             ],
             "aliases": {
-                "SvgAvatarGenerator": "Sowren\\SvgAvatarGenerator\\Facades\\SvgAvatarGenerator"
+                "Svg": "Sowren\\SvgAvatarGenerator\\Facades\\Svg"
             }
         }
     },

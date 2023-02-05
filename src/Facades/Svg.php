@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @see \Sowren\SvgAvatarGenerator\SvgAvatarGenerator
  */
-class SvgAvatarGenerator extends Facade
+class Svg extends Facade
 {
     protected static function getFacadeAccessor()
     {
