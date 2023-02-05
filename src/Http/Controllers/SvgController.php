@@ -10,7 +10,7 @@ class SvgController
     public function __invoke(Request $request)
     {
         $request->validate([
-            'text' => ['required']
+            'text' => ['required'],
         ]);
 
         $svg = new SvgAvatarGenerator($request->input('text'));

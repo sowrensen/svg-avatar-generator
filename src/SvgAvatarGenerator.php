@@ -3,22 +3,30 @@
 namespace Sowren\SvgAvatarGenerator;
 
 use Illuminate\Support\Str;
-use Sowren\SvgAvatarGenerator\Enums\Shape;
 use Sowren\SvgAvatarGenerator\Enums\FontWeight;
-use Sowren\SvgAvatarGenerator\Exceptions\InvalidSvgSizeException;
+use Sowren\SvgAvatarGenerator\Enums\Shape;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidFontSizeException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientRotationException;
+use Sowren\SvgAvatarGenerator\Exceptions\InvalidSvgSizeException;
 
 class SvgAvatarGenerator
 {
     protected int $size;
+
     protected Shape $shape;
+
     protected int $fontSize;
+
     protected FontWeight $fontWeight;
+
     protected string $foreground;
+
     protected int $gradientRotation;
+
     protected array $gradientColors;
+
     private string $fillClassName = 'svg-fill-gradient';
+
     private array $config = [];
 
     public function __construct(public string $text = '')
@@ -128,7 +136,7 @@ class SvgAvatarGenerator
         // initial, else take the first letter of the last part.
         $secondInitial = ($parts->count() === 1) ? $parts->first()[1] : $parts->last()[0];
 
-        return strtoupper($firstInitial . $secondInitial);
+        return strtoupper($firstInitial.$secondInitial);
     }
 
     protected function circleElement(): string
@@ -172,12 +180,12 @@ class SvgAvatarGenerator
     protected function build(): void
     {
         $this
-            ->size($this->config['size'] )
-            ->shape($this->config['shape'] )
-            ->fontSize($this->config['font_size'] )
-            ->fontWeight($this->config['font_weight'] )
-            ->foreground($this->config['foreground'] )
-            ->gradientRotation($this->config['gradient_rotation'] )
+            ->size($this->config['size'])
+            ->shape($this->config['shape'])
+            ->fontSize($this->config['font_size'])
+            ->fontWeight($this->config['font_weight'])
+            ->foreground($this->config['foreground'])
+            ->gradientRotation($this->config['gradient_rotation'])
             ->gradientColors(
                 $this->config['gradient_colors'][0],
                 $this->config['gradient_colors'][1]
