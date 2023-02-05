@@ -61,13 +61,6 @@ class SvgAvatarGenerator
     protected array $gradientColors;
 
     /**
-     * Fill class name used in SVG elements.
-     *
-     * @var string
-     */
-    private string $fillClassName = 'svg-fill-gradient';
-
-    /**
      * Array to hold default config.
      *
      * @var array
@@ -271,61 +264,6 @@ class SvgAvatarGenerator
     }
 
     /**
-     * The circle element of SVG markup.
-     *
-     * @return string
-     */
-    protected function circleElement(): string
-    {
-        return "<circle cx='50' cy='50' r='50' fill='url(#{$this->fillClassName})'></circle>";
-    }
-
-    /**
-     * The rectangle element of SVG markup.
-     *
-     * @return string
-     */
-    protected function rectangleElement(): string
-    {
-        return "<rect width='100%' height='100%' fill='url(#{$this->fillClassName})'/>";
-    }
-
-    /**
-     * Build the output SVG.
-     *
-     * @param  string  $initials
-     * @param  string  $shape
-     * @return string
-     */
-    protected function svgElement(string $initials, string $shape): string
-    {
-        try {
-            $svg = <<<SVG
-                <svg width="{$this->size}" height="{$this->size}" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <defs>
-                        <linearGradient id="{$this->fillClassName}" gradientTransform="rotate({$this->gradientRotation})">
-                            <stop offset="0%" stop-color="{$this->gradientColors[0]}"/>
-                            <stop offset="100%" stop-color="{$this->gradientColors[1]}"/>
-                        </linearGradient>
-                    </defs>
-                    {$shape}
-                    <text x="50%" y="50%" 
-                        style="line-height: 1; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;"
-                        alignment-baseline="middle" text-anchor="middle" font-size="{$this->fontSize}" font-weight="{$this->fontWeight->value}"
-                        dy=".1em" dominant-baseline="middle" fill="{$this->foreground}">
-                        {$initials}
-                    </text>
-                </svg>
-                SVG;
-        } catch (\Exception $e) {
-            logger($e->getMessage());
-            $svg = '<svg></svg>';
-        }
-
-        return $svg;
-    }
-
-    /**
      * Set default values from config.
      *
      * @return void
@@ -351,23 +289,27 @@ class SvgAvatarGenerator
     /**
      * Render the SVG.
      *
-     * @return string
+     * @return Svg
      * @throws \Exception
      */
-    public function render(): string
+    public function render(): Svg
     {
         if (! $this->text) {
-            throw new \Exception("SVG text is not set, did you forget to call for('my name') method?");
+            throw new \Exception('SVG text is not set, call for($text) to set the text/name.');
         }
 
-        $initials = $this->extractInitials($this->text);
+        $config = [
+            'initials' => $this->extractInitials($this->text),
+            'size' => $this->size,
+            'shape' => $this->shape,
+            'font_size' => $this->fontSize,
+            'font_weight' => $this->fontWeight,
+            'foreground' => $this->foreground,
+            'gradient_rotation' => $this->gradientRotation,
+            'gradient_colors' => $this->gradientColors,
+        ];
 
-        $shape = match ($this->shape) {
-            Shape::RECTANGLE => $this->rectangleElement(),
-            default => $this->circleElement(),
-        };
-
-        return $this->svgElement($initials, $shape);
+        return new Svg($config);
     }
 
     /**
