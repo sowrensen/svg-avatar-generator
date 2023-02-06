@@ -5,6 +5,7 @@ namespace Sowren\SvgAvatarGenerator;
 use Illuminate\Support\Str;
 use Sowren\SvgAvatarGenerator\Enums\Shape;
 use Sowren\SvgAvatarGenerator\Enums\FontWeight;
+use Sowren\SvgAvatarGenerator\Exceptions\MissingTextException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidSvgSizeException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidFontSizeException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientRotationException;
@@ -290,12 +291,12 @@ class SvgAvatarGenerator
      * Render the SVG.
      *
      * @return Svg
-     * @throws \Exception
+     * @throws MissingTextException
      */
     public function render(): Svg
     {
         if (! $this->text) {
-            throw new \Exception('SVG text is not set, call for($text) to set the text/name.');
+            throw MissingTextException::create();
         }
 
         $config = [
