@@ -13,6 +13,13 @@ use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientRotationException;
 class SvgAvatarGenerator
 {
     /**
+     * Initials to be put in SVG.
+     *
+     * @var string
+     */
+    protected string $initials = '';
+
+    /**
      * Size of the SVG.
      *
      * @var int
@@ -68,10 +75,19 @@ class SvgAvatarGenerator
      */
     private array $config = [];
 
+    /**
+     * @throws InvalidSvgSizeException
+     * @throws InvalidFontSizeException
+     * @throws InvalidGradientRotationException
+     */
     public function __construct(public string $text = '')
     {
         $this->config = config('svg-avatar');
         $this->build();
+
+        if ($this->text) {
+            $this->for($this->text);
+        }
     }
 
     /**
@@ -95,6 +111,7 @@ class SvgAvatarGenerator
     public function for(string $text): static
     {
         $this->text = $text;
+        $this->extractInitials();
 
         return $this;
     }
@@ -238,11 +255,12 @@ class SvgAvatarGenerator
      * it will look for second capital character in the word, else
      * the consecutive second character will be taken.
      *
-     * @param  string  $name
-     * @return string
+     * @return $this
      */
-    protected function extractInitials(string $name): string
+    protected function extractInitials(): static
     {
+        $name = $this->text;
+
         if (Str::contains($name, ' ')) {
             // If name has more than one part then break each part upto each space
             $parts = Str::of($name)->explode(' ');
@@ -261,7 +279,9 @@ class SvgAvatarGenerator
         // initial, else take the first letter of the last part.
         $secondInitial = ($parts->count() === 1) ? $parts->first()[1] : $parts->last()[0];
 
-        return strtoupper($firstInitial . $secondInitial);
+        $this->initials = strtoupper($firstInitial . $secondInitial);
+
+        return $this;
     }
 
     /**
@@ -300,7 +320,7 @@ class SvgAvatarGenerator
         }
 
         $config = [
-            'initials' => $this->extractInitials($this->text),
+            'initials' => $this->initials,
             'size' => $this->size,
             'shape' => $this->shape,
             'font_size' => $this->fontSize,
