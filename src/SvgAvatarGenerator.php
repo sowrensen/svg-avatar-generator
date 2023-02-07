@@ -117,6 +117,16 @@ class SvgAvatarGenerator
     }
 
     /**
+     * Get generated initials.
+     *
+     * @return string
+     */
+    public function getInitials(): string
+    {
+        return $this->initials;
+    }
+
+    /**
      * Set the SVG size between 16 and 512. The generated
      * SVG is square always.
      *
