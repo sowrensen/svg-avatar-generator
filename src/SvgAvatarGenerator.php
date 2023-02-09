@@ -3,12 +3,12 @@
 namespace Sowren\SvgAvatarGenerator;
 
 use Illuminate\Support\Str;
-use Sowren\SvgAvatarGenerator\Enums\Shape;
 use Sowren\SvgAvatarGenerator\Enums\FontWeight;
-use Sowren\SvgAvatarGenerator\Exceptions\MissingTextException;
-use Sowren\SvgAvatarGenerator\Exceptions\InvalidSvgSizeException;
+use Sowren\SvgAvatarGenerator\Enums\Shape;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidFontSizeException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientRotationException;
+use Sowren\SvgAvatarGenerator\Exceptions\InvalidSvgSizeException;
+use Sowren\SvgAvatarGenerator\Exceptions\MissingTextException;
 
 class SvgAvatarGenerator
 {
@@ -132,6 +132,7 @@ class SvgAvatarGenerator
      *
      * @param  int  $size
      * @return $this
+     *
      * @throws InvalidSvgSizeException
      */
     public function size(int $size): static
@@ -186,6 +187,7 @@ class SvgAvatarGenerator
      *
      * @param  int  $fontSize
      * @return $this
+     *
      * @throws InvalidFontSizeException
      */
     public function fontSize(int $fontSize): static
@@ -231,6 +233,7 @@ class SvgAvatarGenerator
      *
      * @param  int  $angle
      * @return $this
+     *
      * @throws InvalidGradientRotationException
      */
     public function gradientRotation(int $angle): static
@@ -289,7 +292,7 @@ class SvgAvatarGenerator
         // initial, else take the first letter of the last part.
         $secondInitial = ($parts->count() === 1) ? $parts->first()[1] : $parts->last()[0];
 
-        $this->initials = strtoupper($firstInitial . $secondInitial);
+        $this->initials = strtoupper($firstInitial.$secondInitial);
 
         return $this;
     }
@@ -298,6 +301,7 @@ class SvgAvatarGenerator
      * Set default values from config.
      *
      * @return void
+     *
      * @throws InvalidFontSizeException
      * @throws InvalidGradientRotationException
      * @throws InvalidSvgSizeException
@@ -321,6 +325,7 @@ class SvgAvatarGenerator
      * Render the SVG.
      *
      * @return Svg
+     *
      * @throws MissingTextException
      */
     public function render(): Svg
