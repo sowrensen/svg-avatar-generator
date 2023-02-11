@@ -127,6 +127,29 @@ class SvgAvatarGenerator
     }
 
     /**
+     * Set the initials.
+     *
+     * @param  string  $initials
+     * @return $this
+     */
+    protected function setInitials(string $initials): static
+    {
+        $this->initials = $initials;
+
+        return $this;
+    }
+
+    /**
+     * Get SVG size.
+     *
+     * @return int
+     */
+    public function getSize(): int
+    {
+        return $this->size;
+    }
+
+    /**
      * Set the SVG size between 16 and 512. The generated
      * SVG is square always.
      *
@@ -135,7 +158,7 @@ class SvgAvatarGenerator
      *
      * @throws InvalidSvgSizeException
      */
-    public function size(int $size): static
+    public function setSize(int $size): static
     {
         if ($size < 16 || $size > 512) {
             throw InvalidSvgSizeException::create($size);
@@ -147,15 +170,25 @@ class SvgAvatarGenerator
     }
 
     /**
+     * Get the shape of the SVG.
+     *
+     * @return Shape
+     */
+    public function getShape(): Shape
+    {
+        return $this->shape;
+    }
+
+    /**
      * Set the shape of the SVG. It can either be Circle,
      * or can be Rectangle.
      *
      * @param  Shape  $shape
      * @return $this
      */
-    protected function shape(Shape $shape): static
+    protected function setShape(Shape $shape): static
     {
-        return $shape === Shape::CIRCLE ? $this->circle() : $this->rectangle();
+        return $shape === Shape::CIRCLE ? $this->asCircle() : $this->asRectangle();
     }
 
     /**
@@ -163,7 +196,7 @@ class SvgAvatarGenerator
      *
      * @return $this
      */
-    public function circle(): static
+    public function asCircle(): static
     {
         $this->shape = Shape::CIRCLE;
 
@@ -175,11 +208,21 @@ class SvgAvatarGenerator
      *
      * @return $this
      */
-    public function rectangle(): static
+    public function asRectangle(): static
     {
         $this->shape = Shape::RECTANGLE;
 
         return $this;
+    }
+
+    /**
+     * Get the font size.
+     *
+     * @return int
+     */
+    public function getFontSize(): int
+    {
+        return $this->fontSize;
     }
 
     /**
@@ -190,7 +233,7 @@ class SvgAvatarGenerator
      *
      * @throws InvalidFontSizeException
      */
-    public function fontSize(int $fontSize): static
+    public function setFontSize(int $fontSize): static
     {
         if ($fontSize < 10 || $fontSize > 50) {
             throw InvalidFontSizeException::create($fontSize);
@@ -202,17 +245,37 @@ class SvgAvatarGenerator
     }
 
     /**
+     * Get the font weight.
+     *
+     * @return FontWeight
+     */
+    public function getFontWeight(): FontWeight
+    {
+        return $this->fontWeight;
+    }
+
+    /**
      * Set the font weight of the SVG. It can be Regular,
      * Medium, Semibold, or Bold.
      *
      * @param  FontWeight  $fontWeight
      * @return $this
      */
-    public function fontWeight(FontWeight $fontWeight): static
+    public function setFontWeight(FontWeight $fontWeight): static
     {
         $this->fontWeight = $fontWeight;
 
         return $this;
+    }
+
+    /**
+     * Get the foreground (font) color.
+     *
+     * @return string
+     */
+    public function getForeground(): string
+    {
+        return $this->foreground;
     }
 
     /**
@@ -221,11 +284,21 @@ class SvgAvatarGenerator
      * @param  string  $color
      * @return $this
      */
-    public function foreground(string $color): static
+    public function setForeground(string $color): static
     {
         $this->foreground = $color;
 
         return $this;
+    }
+
+    /**
+     * Get the angle of color gradient rotation.
+     *
+     * @return int
+     */
+    public function getGradientRotation(): int
+    {
+        return $this->gradientRotation;
     }
 
     /**
@@ -236,7 +309,7 @@ class SvgAvatarGenerator
      *
      * @throws InvalidGradientRotationException
      */
-    public function gradientRotation(int $angle): static
+    public function setGradientRotation(int $angle): static
     {
         if ($angle < 0 || $angle > 360) {
             throw InvalidGradientRotationException::create($angle);
@@ -248,6 +321,16 @@ class SvgAvatarGenerator
     }
 
     /**
+     * Get the gradient colors.
+     *
+     * @return array
+     */
+    public function getGradientColors(): array
+    {
+        return $this->gradientColors;
+    }
+
+    /**
      * Set the two colors (hex) for gradient, use same color for
      * a plain or flat SVG output.
      *
@@ -255,7 +338,7 @@ class SvgAvatarGenerator
      * @param  string  $secondColor
      * @return $this
      */
-    public function gradientColors(string $firstColor, string $secondColor): static
+    public function setGradientColors(string $firstColor, string $secondColor): static
     {
         $this->gradientColors[0] = $firstColor;
         $this->gradientColors[1] = $secondColor;
@@ -292,7 +375,7 @@ class SvgAvatarGenerator
         // initial, else take the first letter of the last part.
         $secondInitial = ($parts->count() === 1) ? $parts->first()[1] : $parts->last()[0];
 
-        $this->initials = strtoupper($firstInitial.$secondInitial);
+        $this->setInitials(strtoupper($firstInitial . $secondInitial));
 
         return $this;
     }
@@ -309,13 +392,13 @@ class SvgAvatarGenerator
     protected function build(): void
     {
         $this
-            ->size($this->config['size'])
-            ->shape($this->config['shape'])
-            ->fontSize($this->config['font_size'])
-            ->fontWeight($this->config['font_weight'])
-            ->foreground($this->config['foreground'])
-            ->gradientRotation($this->config['gradient_rotation'])
-            ->gradientColors(
+            ->setSize($this->config['size'])
+            ->setShape($this->config['shape'])
+            ->setFontSize($this->config['font_size'])
+            ->setFontWeight($this->config['font_weight'])
+            ->setForeground($this->config['foreground'])
+            ->setGradientRotation($this->config['gradient_rotation'])
+            ->setGradientColors(
                 $this->config['gradient_colors'][0],
                 $this->config['gradient_colors'][1]
             );
@@ -330,22 +413,11 @@ class SvgAvatarGenerator
      */
     public function render(): Svg
     {
-        if (! $this->text) {
+        if (! $this->initials) {
             throw MissingTextException::create();
         }
 
-        $config = [
-            'initials' => $this->initials,
-            'size' => $this->size,
-            'shape' => $this->shape,
-            'font_size' => $this->fontSize,
-            'font_weight' => $this->fontWeight,
-            'foreground' => $this->foreground,
-            'gradient_rotation' => $this->gradientRotation,
-            'gradient_colors' => $this->gradientColors,
-        ];
-
-        return new Svg($config);
+        return new Svg($this);
     }
 
     /**

@@ -14,7 +14,7 @@ class Svg
     private string $fillClassName = 'svg-fill-gradient';
 
     public function __construct(
-        public array $config
+        public SvgAvatarGenerator $generator
     ) {
     }
 
@@ -32,19 +32,29 @@ class Svg
     {
         try {
             $svg = <<<SVG
-                <svg width="{$this->config['size']}" height="{$this->config['size']}" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <svg 
+                    width="{$this->generator->getSize()}" 
+                    height="{$this->generator->getSize()}" 
+                    viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" 
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                >
                     <defs>
-                        <linearGradient id="{$this->fillClassName}" gradientTransform="rotate({$this->config['gradient_rotation']})">
-                            <stop offset="0%" stop-color="{$this->config['gradient_colors'][0]}"/>
-                            <stop offset="100%" stop-color="{$this->config['gradient_colors'][1]}"/>
+                        <linearGradient id="{$this->fillClassName}" gradientTransform="rotate({$this->generator->getGradientRotation()})">
+                            <stop offset="0%" stop-color="{$this->generator->getGradientColors()[0]}"/>
+                            <stop offset="100%" stop-color="{$this->generator->getGradientColors()[1]}"/>
                         </linearGradient>
                     </defs>
-                    {$this->findElement($this->config['shape'])}
-                    <text x="50%" y="50%" 
-                        style="line-height: 1; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;"
-                        alignment-baseline="middle" text-anchor="middle" font-size="{$this->config['font_size']}" font-weight="{$this->config['font_weight']->value}"
-                        dy=".1em" dominant-baseline="middle" fill="{$this->config['foreground']}">
-                        {$this->config['initials']}
+                    {$this->getElement($this->generator->getShape())}
+                    <text 
+                        x="50%" y="50%" style="line-height: 1; 
+                        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;"
+                        alignment-baseline="middle" text-anchor="middle" 
+                        font-size="{$this->generator->getFontSize()}" 
+                        font-weight="{$this->generator->getFontWeight()->value}"
+                        dy=".1em" dominant-baseline="middle" 
+                        fill="{$this->generator->getForeground()}"
+                    >
+                        {$this->generator->getInitials()}
                     </text>
                 </svg>
                 SVG;
@@ -62,7 +72,7 @@ class Svg
      * @param  Shape  $shape
      * @return string
      */
-    protected function findElement(Shape $shape): string
+    protected function getElement(Shape $shape): string
     {
         return match ($shape) {
             Shape::RECTANGLE => $this->rectangleElement(),

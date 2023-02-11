@@ -17,6 +17,6 @@ class SvgAvatarGeneratorServiceProvider extends PackageServiceProvider
         $package
             ->name('svg-avatar-generator')
             ->hasConfigFile('svg-avatar')
-            ->hasRoute('svg-avatar');
+            ->hasRoute('web');
     }
 }
