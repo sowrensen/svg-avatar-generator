@@ -375,7 +375,7 @@ class SvgAvatarGenerator
         // initial, else take the first letter of the last part.
         $secondInitial = ($parts->count() === 1) ? $parts->first()[1] : $parts->last()[0];
 
-        $this->setInitials(strtoupper($firstInitial . $secondInitial));
+        $this->setInitials(strtoupper($firstInitial.$secondInitial));
 
         return $this;
     }
