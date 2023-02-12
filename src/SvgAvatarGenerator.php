@@ -8,41 +8,157 @@ use Sowren\SvgAvatarGenerator\Enums\Shape;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidFontSizeException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientRotationException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidSvgSizeException;
+use Sowren\SvgAvatarGenerator\Exceptions\MissingTextException;
 
 class SvgAvatarGenerator
 {
+    /**
+     * Initials to be put in SVG.
+     *
+     * @var string
+     */
+    protected string $initials = '';
+
+    /**
+     * Size of the SVG.
+     *
+     * @var int
+     */
     protected int $size;
 
+    /**
+     * Shape of the SVG, either Circle or Rectangle.
+     *
+     * @var Shape
+     */
     protected Shape $shape;
 
+    /**
+     * Font size of the SVG.
+     *
+     * @var int
+     */
     protected int $fontSize;
 
+    /**
+     * Font weight of the SVG, Regular, Medium, Semibold, or Bold.
+     *
+     * @var FontWeight
+     */
     protected FontWeight $fontWeight;
 
+    /**
+     * Foreground color of the SVG.
+     *
+     * @var string
+     */
     protected string $foreground;
 
+    /**
+     * Angle of rotation of the color gradients.
+     *
+     * @var int
+     */
     protected int $gradientRotation;
 
+    /**
+     * Colors used for gradient, use same colors for a plain SVG.
+     *
+     * @var array
+     */
     protected array $gradientColors;
 
-    private string $fillClassName = 'svg-fill-gradient';
-
+    /**
+     * Array to hold default config.
+     *
+     * @var array
+     */
     private array $config = [];
 
+    /**
+     * @throws InvalidSvgSizeException
+     * @throws InvalidFontSizeException
+     * @throws InvalidGradientRotationException
+     */
     public function __construct(public string $text = '')
     {
         $this->config = config('svg-avatar');
         $this->build();
+
+        if ($this->text) {
+            $this->for($this->text);
+        }
     }
 
+    /**
+     * Set the text or name to be used in the SVG. If only one word
+     * is given, it will look for second capital character in the
+     * word, else the consecutive second character will be taken.
+     *
+     * Examples:
+     *
+     * 'John Doe' will produce 'JD'
+     *
+     * 'JohnDoe' will produce 'JD'
+     *
+     * 'Johndoe' will produce 'JO'
+     *
+     * 'JohndoE' will produce 'JE'
+     *
+     * @param  string  $text
+     * @return $this
+     */
     public function for(string $text): static
     {
         $this->text = $text;
+        $this->extractInitials();
 
         return $this;
     }
 
-    public function size(int $size): static
+    /**
+     * Get generated initials.
+     *
+     * @return string
+     */
+    public function getInitials(): string
+    {
+        return $this->initials;
+    }
+
+    /**
+     * Set the initials.
+     *
+     * @param  string  $initials
+     * @return $this
+     */
+    protected function setInitials(string $initials): static
+    {
+        $this->initials = $initials;
+
+        return $this;
+    }
+
+    /**
+     * Get SVG size.
+     *
+     * @return int
+     */
+    public function getSize(): int
+    {
+        return $this->size;
+    }
+
+    /**
+     * Set the SVG size between 16 and 512. The generated
+     * SVG is square always.
+     *
+     * @param  int  $size
+     * @return $this
+     *
+     * @throws InvalidSvgSizeException
+     */
+    public function setSize(int $size): static
     {
         if ($size < 16 || $size > 512) {
             throw InvalidSvgSizeException::create($size);
@@ -53,26 +169,71 @@ class SvgAvatarGenerator
         return $this;
     }
 
-    protected function shape(Shape $shape): static
+    /**
+     * Get the shape of the SVG.
+     *
+     * @return Shape
+     */
+    public function getShape(): Shape
     {
-        return $shape === Shape::CIRCLE ? $this->circle() : $this->rectangle();
+        return $this->shape;
     }
 
-    public function circle(): static
+    /**
+     * Set the shape of the SVG. It can either be Circle,
+     * or can be Rectangle.
+     *
+     * @param  Shape  $shape
+     * @return $this
+     */
+    protected function setShape(Shape $shape): static
+    {
+        return $shape === Shape::CIRCLE ? $this->asCircle() : $this->asRectangle();
+    }
+
+    /**
+     * Set circle as output SVG shape.
+     *
+     * @return $this
+     */
+    public function asCircle(): static
     {
         $this->shape = Shape::CIRCLE;
 
         return $this;
     }
 
-    public function rectangle(): static
+    /**
+     * Set rectangle as output SVG shape.
+     *
+     * @return $this
+     */
+    public function asRectangle(): static
     {
         $this->shape = Shape::RECTANGLE;
 
         return $this;
     }
 
-    public function fontSize(int $fontSize): static
+    /**
+     * Get the font size.
+     *
+     * @return int
+     */
+    public function getFontSize(): int
+    {
+        return $this->fontSize;
+    }
+
+    /**
+     * Set font size of the SVG between 10 and 50.
+     *
+     * @param  int  $fontSize
+     * @return $this
+     *
+     * @throws InvalidFontSizeException
+     */
+    public function setFontSize(int $fontSize): static
     {
         if ($fontSize < 10 || $fontSize > 50) {
             throw InvalidFontSizeException::create($fontSize);
@@ -83,21 +244,72 @@ class SvgAvatarGenerator
         return $this;
     }
 
-    public function fontWeight(FontWeight $fontWeight): static
+    /**
+     * Get the font weight.
+     *
+     * @return FontWeight
+     */
+    public function getFontWeight(): FontWeight
+    {
+        return $this->fontWeight;
+    }
+
+    /**
+     * Set the font weight of the SVG. It can be Regular,
+     * Medium, Semibold, or Bold.
+     *
+     * @param  FontWeight  $fontWeight
+     * @return $this
+     */
+    public function setFontWeight(FontWeight $fontWeight): static
     {
         $this->fontWeight = $fontWeight;
 
         return $this;
     }
 
-    public function foreground(string $color): static
+    /**
+     * Get the foreground (font) color.
+     *
+     * @return string
+     */
+    public function getForeground(): string
+    {
+        return $this->foreground;
+    }
+
+    /**
+     * Set the foreground (font) color of the SVG.
+     *
+     * @param  string  $color
+     * @return $this
+     */
+    public function setForeground(string $color): static
     {
         $this->foreground = $color;
 
         return $this;
     }
 
-    public function gradientRotation(int $angle): static
+    /**
+     * Get the angle of color gradient rotation.
+     *
+     * @return int
+     */
+    public function getGradientRotation(): int
+    {
+        return $this->gradientRotation;
+    }
+
+    /**
+     * Set the angle of the color gradient rotation between 0 and 360.
+     *
+     * @param  int  $angle
+     * @return $this
+     *
+     * @throws InvalidGradientRotationException
+     */
+    public function setGradientRotation(int $angle): static
     {
         if ($angle < 0 || $angle > 360) {
             throw InvalidGradientRotationException::create($angle);
@@ -108,16 +320,43 @@ class SvgAvatarGenerator
         return $this;
     }
 
-    public function gradientColors(string $colorA, string $colorB): static
+    /**
+     * Get the gradient colors.
+     *
+     * @return array
+     */
+    public function getGradientColors(): array
     {
-        $this->gradientColors[0] = $colorA;
-        $this->gradientColors[1] = $colorB;
+        return $this->gradientColors;
+    }
+
+    /**
+     * Set the two colors (hex) for gradient, use same color for
+     * a plain or flat SVG output.
+     *
+     * @param  string  $firstColor
+     * @param  string  $secondColor
+     * @return $this
+     */
+    public function setGradientColors(string $firstColor, string $secondColor): static
+    {
+        $this->gradientColors[0] = $firstColor;
+        $this->gradientColors[1] = $secondColor;
 
         return $this;
     }
 
-    protected function extractInitials(string $name): string
+    /**
+     * Extract initials from given text/name. If only one word is given,
+     * it will look for second capital character in the word, else
+     * the consecutive second character will be taken.
+     *
+     * @return $this
+     */
+    protected function extractInitials(): static
     {
+        $name = $this->text;
+
         if (Str::contains($name, ' ')) {
             // If name has more than one part then break each part upto each space
             $parts = Str::of($name)->explode(' ');
@@ -136,78 +375,56 @@ class SvgAvatarGenerator
         // initial, else take the first letter of the last part.
         $secondInitial = ($parts->count() === 1) ? $parts->first()[1] : $parts->last()[0];
 
-        return strtoupper($firstInitial.$secondInitial);
+        $this->setInitials(strtoupper($firstInitial.$secondInitial));
+
+        return $this;
     }
 
-    protected function circleElement(): string
-    {
-        return "<circle cx='50' cy='50' r='50' fill='url(#{$this->fillClassName})'></circle>";
-    }
-
-    protected function rectangleElement(): string
-    {
-        return "<rect width='100%' height='100%' fill='url(#{$this->fillClassName})'/>";
-    }
-
-    protected function svgElement(string $initials, string $shape): string
-    {
-        try {
-            $svg = <<<SVG
-                <svg width="{$this->size}" height="{$this->size}" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <defs>
-                        <linearGradient id="{$this->fillClassName}" gradientTransform="rotate({$this->gradientRotation})">
-                            <stop offset="0%" stop-color="{$this->gradientColors[0]}"/>
-                            <stop offset="100%" stop-color="{$this->gradientColors[1]}"/>
-                        </linearGradient>
-                    </defs>
-                    {$shape}
-                    <text x="50%" y="50%" 
-                        style="line-height: 1; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;"
-                        alignment-baseline="middle" text-anchor="middle" font-size="{$this->fontSize}" font-weight="{$this->fontWeight->value}"
-                        dy=".1em" dominant-baseline="middle" fill="{$this->foreground}">
-                        {$initials}
-                    </text>
-                </svg>
-                SVG;
-        } catch (\Exception $e) {
-            logger($e->getMessage());
-            $svg = '<svg></svg>';
-        }
-
-        return $svg;
-    }
-
+    /**
+     * Set default values from config.
+     *
+     * @return void
+     *
+     * @throws InvalidFontSizeException
+     * @throws InvalidGradientRotationException
+     * @throws InvalidSvgSizeException
+     */
     protected function build(): void
     {
         $this
-            ->size($this->config['size'])
-            ->shape($this->config['shape'])
-            ->fontSize($this->config['font_size'])
-            ->fontWeight($this->config['font_weight'])
-            ->foreground($this->config['foreground'])
-            ->gradientRotation($this->config['gradient_rotation'])
-            ->gradientColors(
+            ->setSize($this->config['size'])
+            ->setShape($this->config['shape'])
+            ->setFontSize($this->config['font_size'])
+            ->setFontWeight($this->config['font_weight'])
+            ->setForeground($this->config['foreground'])
+            ->setGradientRotation($this->config['gradient_rotation'])
+            ->setGradientColors(
                 $this->config['gradient_colors'][0],
                 $this->config['gradient_colors'][1]
             );
     }
 
-    public function render(): string
+    /**
+     * Render the SVG.
+     *
+     * @return Svg
+     *
+     * @throws MissingTextException
+     */
+    public function render(): Svg
     {
-        if (! $this->text) {
-            throw new \Exception("SVG text is not set, did you forget to call for('my name') method?");
+        if (! $this->initials) {
+            throw MissingTextException::create();
         }
 
-        $initials = $this->extractInitials($this->text);
-
-        $shape = match ($this->shape) {
-            Shape::RECTANGLE => $this->rectangleElement(),
-            default => $this->circleElement(),
-        };
-
-        return $this->svgElement($initials, $shape);
+        return new Svg($this);
     }
 
+    /**
+     * Output the SVG as an HTTP url.
+     *
+     * @return string
+     */
     public function toUrl(): string
     {
         return url("{$this->config['url']}?text={$this->text}");
