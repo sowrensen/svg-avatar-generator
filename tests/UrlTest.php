@@ -1,9 +1,9 @@
 <?php
 
+use Illuminate\Http\Request;
+use Sowren\SvgAvatarGenerator\Exceptions\MissingTextException;
 use Sowren\SvgAvatarGenerator\Http\Controllers\SvgController;
 use Sowren\SvgAvatarGenerator\Svg;
-use Sowren\SvgAvatarGenerator\Exceptions\MissingTextException;
-use Illuminate\Http\Request;
 
 it('will generate a url with the passed name', function () {
     $svg = new Sowren\SvgAvatarGenerator\SvgAvatarGenerator('Jon Snow');

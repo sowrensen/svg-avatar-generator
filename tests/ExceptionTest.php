@@ -1,10 +1,10 @@
 <?php
 
-use Sowren\SvgAvatarGenerator\SvgAvatarGenerator;
-use Sowren\SvgAvatarGenerator\Exceptions\MissingTextException;
-use Sowren\SvgAvatarGenerator\Exceptions\InvalidSvgSizeException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidFontSizeException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientRotationException;
+use Sowren\SvgAvatarGenerator\Exceptions\InvalidSvgSizeException;
+use Sowren\SvgAvatarGenerator\Exceptions\MissingTextException;
+use Sowren\SvgAvatarGenerator\SvgAvatarGenerator;
 
 it('will throw exception if svg size smaller than minimum is provided', function () {
     config(['svg-avatar.size' => 8]);

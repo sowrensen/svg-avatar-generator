@@ -4,11 +4,11 @@ namespace Sowren\SvgAvatarGenerator\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Sowren\SvgAvatarGenerator\SvgAvatarGenerator;
-use Sowren\SvgAvatarGenerator\Exceptions\MissingTextException;
-use Sowren\SvgAvatarGenerator\Exceptions\InvalidSvgSizeException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidFontSizeException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientRotationException;
+use Sowren\SvgAvatarGenerator\Exceptions\InvalidSvgSizeException;
+use Sowren\SvgAvatarGenerator\Exceptions\MissingTextException;
+use Sowren\SvgAvatarGenerator\SvgAvatarGenerator;
 
 class SvgController
 {

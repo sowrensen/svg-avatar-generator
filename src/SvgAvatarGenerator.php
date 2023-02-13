@@ -116,6 +116,7 @@ class SvgAvatarGenerator
      * Get generated initials.
      *
      * @return string
+     *
      * @throws MissingTextException
      */
     public function getInitials(): string
@@ -353,6 +354,7 @@ class SvgAvatarGenerator
      * the consecutive second character will be taken.
      *
      * @return $this
+     *
      * @throws MissingTextException
      */
     protected function extractInitials(): static
@@ -414,6 +416,7 @@ class SvgAvatarGenerator
      * Render the SVG.
      *
      * @return Svg
+     *
      * @throws MissingTextException
      */
     public function render(): Svg
