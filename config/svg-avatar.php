@@ -1,7 +1,20 @@
 <?php
 
 return [
-    'size' => 128, // From 16 to 512
+    /*
+    |--------------------------------------------------------------------------
+    | SVG Image Size
+    |--------------------------------------------------------------------------
+    |
+    | Generated images are square, this is done intentionally so that the
+    | rendering of circular shaped images are perfect. So instead of
+    | height and width we will set size.
+    |
+    | Default: 128
+    | Allowed values: 16 to 512
+    |
+    */
+    'size' => 128,
 
     'shape' => \Sowren\SvgAvatarGenerator\Enums\Shape::CIRCLE, // or Shape::Rectangle
 
