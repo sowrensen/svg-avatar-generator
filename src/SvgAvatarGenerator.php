@@ -2,6 +2,7 @@
 
 namespace Sowren\SvgAvatarGenerator;
 
+use Exception;
 use Illuminate\Support\Str;
 use Sowren\SvgAvatarGenerator\Enums\FontWeight;
 use Sowren\SvgAvatarGenerator\Enums\Shape;
@@ -73,21 +74,17 @@ class SvgAvatarGenerator
      *
      * @var array
      */
-    private array $config = [];
+    private array $config;
 
     /**
      * @throws InvalidSvgSizeException
      * @throws InvalidFontSizeException
      * @throws InvalidGradientRotationException
      */
-    public function __construct(public string $text = '')
+    public function __construct(public ?string $text = null)
     {
         $this->config = config('svg-avatar');
         $this->build();
-
-        if ($this->text) {
-            $this->for($this->text);
-        }
     }
 
     /**
@@ -111,7 +108,6 @@ class SvgAvatarGenerator
     public function for(string $text): static
     {
         $this->text = $text;
-        $this->extractInitials();
 
         return $this;
     }
@@ -120,9 +116,14 @@ class SvgAvatarGenerator
      * Get generated initials.
      *
      * @return string
+     * @throws MissingTextException
      */
     public function getInitials(): string
     {
+        if (! $this->initials) {
+            $this->extractInitials();
+        }
+
         return $this->initials;
     }
 
@@ -352,6 +353,7 @@ class SvgAvatarGenerator
      * the consecutive second character will be taken.
      *
      * @return $this
+     * @throws MissingTextException
      */
     protected function extractInitials(): static
     {
@@ -369,11 +371,15 @@ class SvgAvatarGenerator
             $parts = Str::of($name)->kebab()->replace('-', ' ')->explode(' ');
         }
 
-        $firstInitial = $parts->first()[0];
+        try {
+            $firstInitial = $parts->first()[0];
 
-        // If only one part is found, take the second letter as second
-        // initial, else take the first letter of the last part.
-        $secondInitial = ($parts->count() === 1) ? $parts->first()[1] : $parts->last()[0];
+            // If only one part is found, take the second letter as second
+            // initial, else take the first letter of the last part.
+            $secondInitial = ($parts->count() === 1) ? $parts->first()[1] : $parts->last()[0];
+        } catch (Exception) {
+            throw MissingTextException::create();
+        }
 
         $this->setInitials(strtoupper($firstInitial.$secondInitial));
 
@@ -408,14 +414,11 @@ class SvgAvatarGenerator
      * Render the SVG.
      *
      * @return Svg
-     *
      * @throws MissingTextException
      */
     public function render(): Svg
     {
-        if (! $this->initials) {
-            throw MissingTextException::create();
-        }
+        $this->extractInitials();
 
         return new Svg($this);
     }

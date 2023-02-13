@@ -2,6 +2,8 @@
 
 use Sowren\SvgAvatarGenerator\Http\Controllers\SvgController;
 use Sowren\SvgAvatarGenerator\Svg;
+use Sowren\SvgAvatarGenerator\Exceptions\MissingTextException;
+use Illuminate\Http\Request;
 
 it('will generate a url with the passed name', function () {
     $svg = new Sowren\SvgAvatarGenerator\SvgAvatarGenerator('Jon Snow');
@@ -12,15 +14,23 @@ it('will generate a url with the passed name', function () {
 it('will respond back with a svg content', function () {
     $object = app()->make(SvgController::class);
 
-    $req = new \Illuminate\Http\Request(['text' => 'Jon Snow']);
+    $request = new Request(['text' => 'Jon Snow']);
 
-    $res = $object($req);
-    $content = $res->getOriginalContent();
+    $response = $object($request);
+    $content = $response->getOriginalContent();
 
-    expect($res)
+    expect($response)
         ->toBeInstanceOf(\Illuminate\Http\Response::class)
         ->toHaveProperties(['headers', 'content'])
-        ->and($res->headers->get('content-type'))->toBe('image/svg+xml')
+        ->and($response->headers->get('content-type'))->toBe('image/svg+xml')
         ->and($content)->toBeInstanceOf(Svg::class)
         ->and($content->generator->getInitials())->toBe('JS');
 });
+
+it('will throw missing text exception if text is not set', function () {
+    $object = app()->make(SvgController::class);
+
+    $request = new Request();
+
+    $object($request);
+})->throws(MissingTextException::class);
