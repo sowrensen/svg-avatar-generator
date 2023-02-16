@@ -13,6 +13,7 @@ Well, this package has some subtle advantages over available packages, here's a 
 - [x] No external api call is required. 🤝🏼
 - [x] Unlike some other available options, doesn't require heavy-weight image processing libraries like **Intervention**.
   🧺
+- [x] Doesn't have any binary dependency, so nothing needs to be installed on server. 🗃️
 - [x] Support for gradient background. 🦜
 - [x] Ability to customize initials. ✍🏼
 
