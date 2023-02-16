@@ -1,62 +1,103 @@
-# Offline SVG avatar generator for Laravel
+# Offline SVG Avatar Generator for Laravel
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/sowrensen/svg-avatar-generator.svg?style=flat-square)](https://packagist.org/packages/sowrensen/svg-avatar-generator)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/sowrensen/svg-avatar-generator/run-tests?label=tests)](https://github.com/sowrensen/svg-avatar-generator/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/sowrensen/svg-avatar-generator/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/sowrensen/svg-avatar-generator/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/sowrensen/svg-avatar-generator.svg?style=flat-square)](https://packagist.org/packages/sowrensen/svg-avatar-generator)
+Generating SVG avatars on the fly is nothing new. There are a lot of free/paid services and packages to do that. So why
+another package for same task?
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+Well, this package has some subtle advantages over available packages, here's a few of them:
 
-## Support us
+- ✅ No external api call is required. 🤝🏼
+- ✅ Unlike some other available options, doesn't require heavy-weight image processing libraries like **Intervention**.
+  🧺
+- ✅ Support for gradient background. 🦜
+- ✅ Ability to customize initials. ✍🏼
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/svg-avatar-generator.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/svg-avatar-generator)
+## Requirements
 
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+- PHP >= 8.1
+- Laravel >= 9.0
 
 ## Installation
 
-You can install the package via composer:
+Install the package via composer:
 
 ```bash
 composer require sowrensen/svg-avatar-generator
 ```
 
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="svg-avatar-generator-migrations"
-php artisan migrate
-```
-
-You can publish the config file with:
+Optionally, you can publish the config file with:
 
 ```bash
 php artisan vendor:publish --tag="svg-avatar-generator-config"
 ```
 
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="svg-avatar-generator-views"
-```
-
 ## Usage
 
+### As model accessor
+
+The usage of this package is stupidly simple. Use the `svg-avatar.php` config file to set your preferred decoration.
+Then use the Facade to generate an avatar on the fly. The recommended way to achieve that is defining an accessor in
+your model:
+
 ```php
-$svgAvatarGenerator = new Sowren\SvgAvatarGenerator();
-echo $svgAvatarGenerator->echoPhrase('Hello, Sowren!');
+use Illuminate\Database\Eloquent\Model;
+use \Illuminate\Database\Eloquent\Casts\Attribute;
+
+class User extends Model
+{
+    //...
+    
+    public function profilePhoto(): Attribute
+    {
+        return Attribute::get(function ($value, $attributes) {
+            // If profile photo is set, return the original
+            if (! is_null($attributes['profile_photo'])) {
+                return $attributes['profile_photo'];
+            }
+            
+            // Else, generate one
+            return \Svg::for($attributes['name'])->toUrl();
+        });
+    }
+}
 ```
 
+> **Note**: If your accessor is different from the original attribute, you might want to put it in `$appends` array so
+> that it loads automatically with your model.
+
+### Override default config
+
+If you want you can generate an avatar totally different from your configured style. It has all helpful methods to make
+that possible:
+
+```php
+use Sowren\SvgAvatarGenerator\Facades\Svg;
+use Sowren\SvgAvatarGenerator\Enums\FontWeight;
+
+Svg::for('John Doe')
+    ->asCircle() // or, asRectangle()
+    ->setSize(64)
+    ->setFontSize(40)
+    ->setFontWeight(FontWeight::SEMIBOLD)
+    ->setForeground('#E6C6A3')
+    ->setGradientColors('#3A1C71', '#FDBB2D')
+    ->setGradientRotation(120)
+    ->render();
+```
+
+### Customize initials
+
+You can define the second initial using studly case. For example,
+
+| Provided string | Produced initial |
+|-----------------|:----------------:|
+| John Doe        |        JD        |
+| JohnDoe         |        JD        |
+| Johndoe         |        JO        |
+| JohndoE         |        JE        |
+
 ## Testing
+
+Run following command to execute test cases:
 
 ```bash
 composer test
@@ -65,19 +106,6 @@ composer test
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
-
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
-
-## Credits
-
-- [Sowren Sen](https://github.com/sowrensen)
-- [All Contributors](../../contributors)
 
 ## License
 
