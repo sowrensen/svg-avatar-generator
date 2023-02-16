@@ -315,7 +315,7 @@ class SvgAvatarGenerator
             throw MissingTextException::create();
         }
 
-        $this->setInitials(strtoupper($firstInitial . $secondInitial));
+        $this->setInitials(strtoupper($firstInitial.$secondInitial));
 
         return $this;
     }
