@@ -8,8 +8,6 @@ class Svg
 {
     /**
      * Fill class name used in SVG elements.
-     *
-     * @var string
      */
     private string $fillClassName = 'svg-fill-gradient';
 
@@ -25,8 +23,6 @@ class Svg
 
     /**
      * Build the output SVG.
-     *
-     * @return string
      */
     protected function svgElement(): string
     {
@@ -68,9 +64,6 @@ class Svg
 
     /**
      * Find SVG element of the given shape.
-     *
-     * @param  Shape  $shape
-     * @return string
      */
     protected function getElement(Shape $shape): string
     {
@@ -82,8 +75,6 @@ class Svg
 
     /**
      * The circle element of SVG markup.
-     *
-     * @return string
      */
     protected function circleElement(): string
     {
@@ -92,8 +83,6 @@ class Svg
 
     /**
      * The rectangle element of SVG markup.
-     *
-     * @return string
      */
     protected function rectangleElement(): string
     {

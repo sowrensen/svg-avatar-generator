@@ -15,9 +15,6 @@ class SvgController
     /**
      * Generate an SVG and send it as an HTTP response.
      *
-     * @param  Request  $request
-     * @return Response
-     *
      * @throws MissingTextException
      * @throws InvalidSvgSizeException
      * @throws InvalidFontSizeException

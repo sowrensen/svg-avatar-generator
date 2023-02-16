@@ -15,64 +15,46 @@ class SvgAvatarGenerator
 {
     /**
      * Initials to be put in SVG.
-     *
-     * @var string
      */
     protected string $initials = '';
 
     /**
      * Size of the SVG.
-     *
-     * @var int
      */
     protected int $size;
 
     /**
      * Shape of the SVG, either Circle or Rectangle.
-     *
-     * @var Shape
      */
     protected Shape $shape;
 
     /**
      * Font size of the SVG.
-     *
-     * @var int
      */
     protected int $fontSize;
 
     /**
      * Font weight of the SVG, Regular, Medium, Semibold, or Bold.
-     *
-     * @var FontWeight
      */
     protected FontWeight $fontWeight;
 
     /**
      * Foreground color of the SVG.
-     *
-     * @var string
      */
     protected string $foreground;
 
     /**
      * Angle of rotation of the color gradients.
-     *
-     * @var int
      */
     protected int $gradientRotation;
 
     /**
      * Colors used for gradient, use same colors for a plain SVG.
-     *
-     * @var array
      */
     protected array $gradientColors;
 
     /**
      * Array to hold default config.
-     *
-     * @var array
      */
     private array $config;
 
@@ -101,9 +83,6 @@ class SvgAvatarGenerator
      * 'Johndoe' will produce 'JO'
      *
      * 'JohndoE' will produce 'JE'
-     *
-     * @param  string  $text
-     * @return $this
      */
     public function for(string $text): static
     {
@@ -114,8 +93,6 @@ class SvgAvatarGenerator
 
     /**
      * Get generated initials.
-     *
-     * @return string
      *
      * @throws MissingTextException
      */
@@ -130,9 +107,6 @@ class SvgAvatarGenerator
 
     /**
      * Set the initials.
-     *
-     * @param  string  $initials
-     * @return $this
      */
     protected function setInitials(string $initials): static
     {
@@ -143,8 +117,6 @@ class SvgAvatarGenerator
 
     /**
      * Get SVG size.
-     *
-     * @return int
      */
     public function getSize(): int
     {
@@ -154,9 +126,6 @@ class SvgAvatarGenerator
     /**
      * Set the SVG size between 16 and 512. The generated
      * SVG is square always.
-     *
-     * @param  int  $size
-     * @return $this
      *
      * @throws InvalidSvgSizeException
      */
@@ -173,8 +142,6 @@ class SvgAvatarGenerator
 
     /**
      * Get the shape of the SVG.
-     *
-     * @return Shape
      */
     public function getShape(): Shape
     {
@@ -184,9 +151,6 @@ class SvgAvatarGenerator
     /**
      * Set the shape of the SVG. It can either be Circle,
      * or can be Rectangle.
-     *
-     * @param  Shape  $shape
-     * @return $this
      */
     protected function setShape(Shape $shape): static
     {
@@ -195,8 +159,6 @@ class SvgAvatarGenerator
 
     /**
      * Set circle as output SVG shape.
-     *
-     * @return $this
      */
     public function asCircle(): static
     {
@@ -207,8 +169,6 @@ class SvgAvatarGenerator
 
     /**
      * Set rectangle as output SVG shape.
-     *
-     * @return $this
      */
     public function asRectangle(): static
     {
@@ -219,8 +179,6 @@ class SvgAvatarGenerator
 
     /**
      * Get the font size.
-     *
-     * @return int
      */
     public function getFontSize(): int
     {
@@ -229,9 +187,6 @@ class SvgAvatarGenerator
 
     /**
      * Set font size of the SVG between 10 and 50.
-     *
-     * @param  int  $fontSize
-     * @return $this
      *
      * @throws InvalidFontSizeException
      */
@@ -248,8 +203,6 @@ class SvgAvatarGenerator
 
     /**
      * Get the font weight.
-     *
-     * @return FontWeight
      */
     public function getFontWeight(): FontWeight
     {
@@ -259,9 +212,6 @@ class SvgAvatarGenerator
     /**
      * Set the font weight of the SVG. It can be Regular,
      * Medium, Semibold, or Bold.
-     *
-     * @param  FontWeight  $fontWeight
-     * @return $this
      */
     public function setFontWeight(FontWeight $fontWeight): static
     {
@@ -272,8 +222,6 @@ class SvgAvatarGenerator
 
     /**
      * Get the foreground (font) color.
-     *
-     * @return string
      */
     public function getForeground(): string
     {
@@ -282,9 +230,6 @@ class SvgAvatarGenerator
 
     /**
      * Set the foreground (font) color of the SVG.
-     *
-     * @param  string  $color
-     * @return $this
      */
     public function setForeground(string $color): static
     {
@@ -295,8 +240,6 @@ class SvgAvatarGenerator
 
     /**
      * Get the angle of color gradient rotation.
-     *
-     * @return int
      */
     public function getGradientRotation(): int
     {
@@ -305,9 +248,6 @@ class SvgAvatarGenerator
 
     /**
      * Set the angle of the color gradient rotation between 0 and 360.
-     *
-     * @param  int  $angle
-     * @return $this
      *
      * @throws InvalidGradientRotationException
      */
@@ -324,8 +264,6 @@ class SvgAvatarGenerator
 
     /**
      * Get the gradient colors.
-     *
-     * @return array
      */
     public function getGradientColors(): array
     {
@@ -335,10 +273,6 @@ class SvgAvatarGenerator
     /**
      * Set the two colors (hex) for gradient, use same color for
      * a plain or flat SVG output.
-     *
-     * @param  string  $firstColor
-     * @param  string  $secondColor
-     * @return $this
      */
     public function setGradientColors(string $firstColor, string $secondColor): static
     {
@@ -352,8 +286,6 @@ class SvgAvatarGenerator
      * Extract initials from given text/name. If only one word is given,
      * it will look for second capital character in the word, else
      * the consecutive second character will be taken.
-     *
-     * @return $this
      *
      * @throws MissingTextException
      */
@@ -383,15 +315,13 @@ class SvgAvatarGenerator
             throw MissingTextException::create();
         }
 
-        $this->setInitials(strtoupper($firstInitial.$secondInitial));
+        $this->setInitials(strtoupper($firstInitial . $secondInitial));
 
         return $this;
     }
 
     /**
      * Set default values from config.
-     *
-     * @return void
      *
      * @throws InvalidFontSizeException
      * @throws InvalidGradientRotationException
@@ -415,8 +345,6 @@ class SvgAvatarGenerator
     /**
      * Render the SVG.
      *
-     * @return Svg
-     *
      * @throws MissingTextException
      */
     public function render(): Svg
@@ -428,8 +356,6 @@ class SvgAvatarGenerator
 
     /**
      * Output the SVG as an HTTP url.
-     *
-     * @return string
      */
     public function toUrl(): string
     {
