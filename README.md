@@ -4,7 +4,6 @@
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/sowrensen/svg-avatar-generator/run-tests.yml?branch=main&label=Tests)](https://github.com/sowrensen/svg-avatar-generator/actions?query=workflow%3ATests+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/sowrensen/svg-avatar-generator.svg)](https://packagist.org/packages/sowrensen/svg-avatar-generator)
 
-
 Generating SVG avatars on the fly is nothing new. There are a lot of free/paid services and packages to do that. So why
 another package for same task?
 
@@ -100,6 +99,10 @@ You can define the second initial using studly case. For example,
 | JohnDoe         |        JD        |
 | Johndoe         |        JO        |
 | JohndoE         |        JE        |
+
+## Sample Output
+
+
 
 ## Testing
 

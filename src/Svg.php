@@ -2,18 +2,20 @@
 
 namespace Sowren\SvgAvatarGenerator;
 
+use Str;
 use Sowren\SvgAvatarGenerator\Enums\Shape;
 
 class Svg
 {
     /**
-     * Fill class name used in SVG elements.
+     * Gradient element ID
      */
-    private string $fillClassName = 'svg-fill-gradient';
+    private string $gradientId;
 
     public function __construct(
         public SvgAvatarGenerator $generator
     ) {
+        $this->gradientId = Str::random(32);
     }
 
     public function __toString(): string
@@ -35,7 +37,7 @@ class Svg
                     xmlns:xlink="http://www.w3.org/1999/xlink"
                 >
                     <defs>
-                        <linearGradient id="{$this->fillClassName}" gradientTransform="rotate({$this->generator->getGradientRotation()})">
+                        <linearGradient id="{$this->gradientId}" gradientTransform="rotate({$this->generator->getGradientRotation()})">
                             <stop offset="0%" stop-color="{$this->generator->getGradientColors()[0]}"/>
                             <stop offset="100%" stop-color="{$this->generator->getGradientColors()[1]}"/>
                         </linearGradient>
@@ -78,7 +80,7 @@ class Svg
      */
     protected function circleElement(): string
     {
-        return "<circle cx='50' cy='50' r='50' fill='url(#{$this->fillClassName})'></circle>";
+        return "<circle cx='50' cy='50' r='50' fill='url(#{$this->gradientId})'></circle>";
     }
 
     /**
@@ -86,6 +88,6 @@ class Svg
      */
     protected function rectangleElement(): string
     {
-        return "<rect width='100%' height='100%' fill='url(#{$this->fillClassName})'/>";
+        return "<rect width='100%' height='100%' fill='url(#{$this->gradientId})'/>";
     }
 }
