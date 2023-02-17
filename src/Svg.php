@@ -2,8 +2,8 @@
 
 namespace Sowren\SvgAvatarGenerator;
 
-use Str;
 use Sowren\SvgAvatarGenerator\Enums\Shape;
+use Str;
 
 class Svg
 {
