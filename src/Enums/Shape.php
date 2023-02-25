@@ -13,8 +13,8 @@ enum Shape
     public function render(): string
     {
         return match ($this) {
-            self::CIRCLE => "svg::elements.circle",
-            self::RECTANGLE => "svg::elements.rectangle",
+            self::CIRCLE => 'svg::elements.circle',
+            self::RECTANGLE => 'svg::elements.rectangle',
         };
     }
 }
