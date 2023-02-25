@@ -30,7 +30,7 @@ class Svg
     {
         return View::make('svg::elements.svg', [
             'generator' => $this->generator,
-            'gradientId' => $this->gradientId
+            'gradientId' => $this->gradientId,
         ])->render();
     }
 }

@@ -2,10 +2,10 @@
 
 namespace Sowren\SvgAvatarGenerator;
 
-use Str;
 use Arr;
 use Exception;
 use Sowren\SvgAvatarGenerator\Exceptions\MissingTextException;
+use Str;
 
 trait Tool
 {
@@ -42,9 +42,8 @@ trait Tool
             throw MissingTextException::create();
         }
 
-        $this->setInitials(strtoupper($firstInitial . $secondInitial));
+        $this->setInitials(strtoupper($firstInitial.$secondInitial));
     }
-
 
     /**
      * Creates sets of colors and offsets to form the gradients.
@@ -88,7 +87,7 @@ trait Tool
                     ? $gradColors[$key] ?? $gradColors[count($gradColors) - 1]
                     : $gradColors;
 
-                $set [] = ['color' => $color, 'offset' => $offset];
+                $set[] = ['color' => $color, 'offset' => $offset];
             }
             $gradientSets[] = $set;
         }
