@@ -6,6 +6,7 @@ use Arr;
 use Sowren\SvgAvatarGenerator\Enums\FontWeight;
 use Sowren\SvgAvatarGenerator\Enums\Shape;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidFontSizeException;
+use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientStopException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientRotationException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidSvgSizeException;
 use Sowren\SvgAvatarGenerator\Exceptions\MissingTextException;
@@ -72,6 +73,7 @@ class SvgAvatarGenerator
     /**
      * @throws InvalidSvgSizeException
      * @throws InvalidFontSizeException
+     * @throws InvalidGradientStopException
      * @throws InvalidGradientRotationException
      */
     public function __construct(public ?string $text = null)
@@ -312,9 +314,14 @@ class SvgAvatarGenerator
 
     /**
      * Set stop positions of gradients.
+     * @throws InvalidGradientStopException
      */
     public function setGradientStops(int|float ...$offsets): static
     {
+        if ((min($offsets) < 0) || max($offsets) > 1) {
+            throw InvalidGradientStopException::create($offsets);
+        }
+
         $this->gradientStops = $offsets;
 
         return $this;
@@ -349,6 +356,7 @@ class SvgAvatarGenerator
      * @throws InvalidFontSizeException
      * @throws InvalidGradientRotationException
      * @throws InvalidSvgSizeException
+     * @throws InvalidGradientStopException
      */
     protected function build(): void
     {

@@ -102,10 +102,10 @@ return [
     | be consistent with gradient offsets.
     |
     | Type: array<array|string>
-    | Default: ['#3A1C71', '#4F46E5', '#FDBB2D']
+    | Default: ['#3A1C71', '#FDBB2D']
     |
     */
-    'gradient_colors' => ['#3A1C71', '#4F46E5', '#FDBB2D'],
+    'gradient_colors' => ['#3A1C71', '#FDBB2D'],
 
     /*
     |--------------------------------------------------------------------------
@@ -120,11 +120,11 @@ return [
     | will be repeated.
     |
     | Type: array<int|float>
-    | Default: [0, .5, 1]
+    | Default: [0, 1]
     | Allowed: 0 to 1
     |
     */
-    'gradient_stops' => [0, .5, 1],
+    'gradient_stops' => [0, 1],
 
     /*
     |--------------------------------------------------------------------------
