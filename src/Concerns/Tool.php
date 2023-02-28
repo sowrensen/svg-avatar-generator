@@ -1,11 +1,11 @@
 <?php
 
-namespace Sowren\SvgAvatarGenerator;
+namespace Sowren\SvgAvatarGenerator\Concerns;
 
 use Arr;
+use Str;
 use Exception;
 use Sowren\SvgAvatarGenerator\Exceptions\MissingTextException;
-use Str;
 
 trait Tool
 {
