@@ -108,7 +108,7 @@ You can define the second initial using studly case. For example,
 
 ## Sample Output
 
-<img src="https://user-images.githubusercontent.com/13097375/219583859-b9b4fcad-2dff-424c-a819-6a39cd5439ca.png" height="128"/>
+<img src="https://user-images.githubusercontent.com/13097375/221879852-b8283a4a-f3ff-42a9-b37a-07cbc9bd0afe.png" height="128"/>
 
 
 ## Testing
