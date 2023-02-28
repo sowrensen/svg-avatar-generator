@@ -3,7 +3,7 @@
 use Sowren\SvgAvatarGenerator\Enums\Shape;
 use Sowren\SvgAvatarGenerator\SvgAvatarGenerator;
 
-it('will make a circular shaped svg', function() {
+it('will make a circular shaped svg', function () {
     $generator = new SvgAvatarGenerator('Walter White');
 
     $generator->asCircle()->render();
@@ -14,7 +14,7 @@ it('will make a circular shaped svg', function() {
         ->toContain('circle');
 });
 
-it('will make a rectangular shaped svg', function() {
+it('will make a rectangular shaped svg', function () {
     $generator = new SvgAvatarGenerator('Walter White');
 
     $generator->asRectangle()->render();

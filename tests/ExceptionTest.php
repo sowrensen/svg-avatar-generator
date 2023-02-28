@@ -1,8 +1,8 @@
 <?php
 
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidFontSizeException;
-use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientStopException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientRotationException;
+use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientStopException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidSvgSizeException;
 use Sowren\SvgAvatarGenerator\Exceptions\MissingTextException;
 use Sowren\SvgAvatarGenerator\SvgAvatarGenerator;
@@ -42,12 +42,12 @@ it('will throw missing text exception if text is not set', function () {
     $generator->getInitials();
 })->throws(MissingTextException::class);
 
-it('it will throw exception if gradient stop less than minimum is provided', function() {
+it('it will throw exception if gradient stop less than minimum is provided', function () {
     config(['svg-avatar.gradient_stops' => [-1, 1]]);
     new SvgAvatarGenerator('Lyanna Stark');
 })->throws(InvalidGradientStopException::class);
 
-it('it will throw exception if gradient stop greater than maximum is provided', function() {
+it('it will throw exception if gradient stop greater than maximum is provided', function () {
     config(['svg-avatar.gradient_stops' => [0, 2]]);
     new SvgAvatarGenerator('Benjen Stark');
 })->throws(InvalidGradientStopException::class);
