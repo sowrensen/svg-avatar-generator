@@ -3,14 +3,14 @@
 namespace Sowren\SvgAvatarGenerator;
 
 use Arr;
-use Sowren\SvgAvatarGenerator\Enums\Shape;
 use Sowren\SvgAvatarGenerator\Concerns\Tool;
 use Sowren\SvgAvatarGenerator\Enums\FontWeight;
-use Sowren\SvgAvatarGenerator\Exceptions\MissingTextException;
-use Sowren\SvgAvatarGenerator\Exceptions\InvalidSvgSizeException;
+use Sowren\SvgAvatarGenerator\Enums\Shape;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidFontSizeException;
-use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientStopException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientRotationException;
+use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientStopException;
+use Sowren\SvgAvatarGenerator\Exceptions\InvalidSvgSizeException;
+use Sowren\SvgAvatarGenerator\Exceptions\MissingTextException;
 
 class SvgAvatarGenerator
 {
