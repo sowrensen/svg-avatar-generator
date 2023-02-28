@@ -14,7 +14,7 @@ Well, this package has some subtle advantages over available packages, here's a 
   🧺
 - [x] Doesn't have any binary dependency, so nothing needs to be installed on server. 🗃️
 - [x] Supports gradient background. 🦜
-- [x] Supports random gradients based on presets. 🦚
+- [x] Supports random gradients based on defined presets in config. 🦚
 - [x] Ability to customize initials. ✍🏼
 
 ## Requirements
