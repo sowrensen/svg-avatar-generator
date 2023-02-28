@@ -13,7 +13,8 @@ Well, this package has some subtle advantages over available packages, here's a 
 - [x] Unlike some other available options, doesn't require heavy-weight image processing libraries like **Intervention**.
   🧺
 - [x] Doesn't have any binary dependency, so nothing needs to be installed on server. 🗃️
-- [x] Support for gradient background. 🦜
+- [x] Supports gradient background. 🦜
+- [x] Supports random gradients based on presets. 🦚
 - [x] Ability to customize initials. ✍🏼
 
 ## Requirements
@@ -83,8 +84,13 @@ Svg::for('John Doe')
     ->setSize(64)
     ->setFontSize(40)
     ->setFontWeight(FontWeight::SEMIBOLD)
-    ->setForeground('#E6C6A3')
-    ->setGradientColors('#3A1C71', '#FDBB2D')
+    ->setForeground('#FFFFFF')
+    ->setGradientColors( // set of 3 different gradients
+      ['#4158D0', '#C850C0', '#FFCC70'], 
+      ['#00DBDE', '#FC00FF'], 
+      ['#FF9A8B', '#FF6A88', '#FF99AC']
+    )
+    ->setGradientStops(0, .5, 1)
     ->setGradientRotation(120)
     ->render();
 ```
