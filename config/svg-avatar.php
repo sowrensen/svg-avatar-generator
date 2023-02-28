@@ -84,15 +84,47 @@ return [
     | Gradient Colors
     |--------------------------------------------------------------------------
     |
-    | Who doesn't admire a nice gradient for background color? For now,
-    | mixture of two colors are supported. You can provide same color
-    | to achieve a flat background.
+    | Who doesn't admire a nice gradient for background color? You can set
+    | a single gradient color or multiple sets of gradients to achieve
+    | more dynamic effect.
     |
-    | Type: array<string>
+    | A fixed single gradient can be set by configuring list of hex colors.
+    | For example, setting ['#FF0000', '#00FF00', '#0000FF'] will make a
+    | gradient consisting red/green/blue color always.
+    |
+    | To set multiple gradients, you have to configure sets of colors. For
+    | example, setting [['#FF0000', '#00FF00'], '#0000FF'] will randomly
+    | generate a gradient of either red/green or blue background.
+    |
+    | You can provide same color to achieve a flat background.
+    |
+    | NOTE: Number of colors in a set—regardless of single multiple set—must
+    | be consistent with gradient offsets.
+    |
+    | Type: array<array|string>
     | Default: ['#3A1C71', '#FDBB2D']
     |
     */
     'gradient_colors' => ['#3A1C71', '#FDBB2D'],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Gradient Stops
+    |--------------------------------------------------------------------------
+    |
+    | Specify the stopping positions of gradient colors. Number of colors
+    | in a set—regardless of single multiple set—must be consistent
+    | with number of gradient stops. If you set more colors than
+    | stops, the extra colors will be omitted, and if you set
+    | fewer colors then stops, the last color in the set
+    | will be repeated.
+    |
+    | Type: array<int|float>
+    | Default: [0, 1]
+    | Allowed: 0 to 1
+    |
+    */
+    'gradient_stops' => [0, 1],
 
     /*
     |--------------------------------------------------------------------------

@@ -2,17 +2,20 @@
 
 namespace Sowren\SvgAvatarGenerator;
 
-use Exception;
-use Illuminate\Support\Str;
+use Arr;
+use Sowren\SvgAvatarGenerator\Concerns\Tool;
 use Sowren\SvgAvatarGenerator\Enums\FontWeight;
 use Sowren\SvgAvatarGenerator\Enums\Shape;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidFontSizeException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientRotationException;
+use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientStopException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidSvgSizeException;
 use Sowren\SvgAvatarGenerator\Exceptions\MissingTextException;
 
 class SvgAvatarGenerator
 {
+    use Tool;
+
     /**
      * Initials to be put in SVG.
      */
@@ -49,9 +52,19 @@ class SvgAvatarGenerator
     protected int $gradientRotation;
 
     /**
-     * Colors used for gradient, use same colors for a plain SVG.
+     * Colors used to portray gradient.
      */
     protected array $gradientColors;
+
+    /**
+     * Positions of gradient color stops.
+     */
+    protected array $gradientStops;
+
+    /**
+     * Picked set of gradient color and offset.
+     */
+    protected array $gradientSet;
 
     /**
      * Array to hold default config.
@@ -61,6 +74,7 @@ class SvgAvatarGenerator
     /**
      * @throws InvalidSvgSizeException
      * @throws InvalidFontSizeException
+     * @throws InvalidGradientStopException
      * @throws InvalidGradientRotationException
      */
     public function __construct(public ?string $text = null)
@@ -271,51 +285,69 @@ class SvgAvatarGenerator
     }
 
     /**
-     * Set the two colors (hex) for gradient, use same color for
-     * a plain or flat SVG output.
+     * Set the colors (hex) for gradient. Colors can either be passed
+     * as single or in pairs for random gradient generation.
+     *
+     * Examples:
+     *
+     * Passing ('red', 'green', 'blue') will be considered as single
+     * set of colors and will generate a gradient consisting these
+     * three colors.
+     *
+     * Passing (['red', 'green'], 'blue') will be considered as two
+     * different sets of colors and will generate random gradient
+     * consisting either red/green or blue background.
      */
-    public function setGradientColors(string $firstColor, string $secondColor): static
+    public function setGradientColors(string|array ...$colors): static
     {
-        $this->gradientColors[0] = $firstColor;
-        $this->gradientColors[1] = $secondColor;
+        $this->gradientColors = $colors;
 
         return $this;
     }
 
     /**
-     * Extract initials from given text/name. If only one word is given,
-     * it will look for second capital character in the word, else
-     * the consecutive second character will be taken.
-     *
-     * @throws MissingTextException
+     * Get the gradient colors.
      */
-    protected function extractInitials(): static
+    public function getGradientStops(): array
     {
-        $name = $this->text;
+        return $this->gradientStops;
+    }
 
-        if (Str::contains($name, ' ')) {
-            // If name has more than one part then break each part upto each space
-            $parts = Str::of($name)->explode(' ');
-        } else {
-            // If name has only one part then try to find out if there are
-            // any uppercase letters in the string. Then break the string
-            // upto each uppercase letters, this allows to pass names in
-            // studly case, e.g. 'SowrenSen'. If no uppercase letter is
-            // found, $parts will have only one item in the array.
-            $parts = Str::of($name)->kebab()->replace('-', ' ')->explode(' ');
+    /**
+     * Set stop positions of gradients.
+     *
+     * @throws InvalidGradientStopException
+     */
+    public function setGradientStops(int|float ...$offsets): static
+    {
+        if ((min($offsets) < 0) || max($offsets) > 1) {
+            throw InvalidGradientStopException::create($offsets);
         }
 
-        try {
-            $firstInitial = $parts->first()[0];
+        $this->gradientStops = $offsets;
 
-            // If only one part is found, take the second letter as second
-            // initial, else take the first letter of the last part.
-            $secondInitial = ($parts->count() === 1) ? $parts->first()[1] : $parts->last()[0];
-        } catch (Exception) {
-            throw MissingTextException::create();
-        }
+        return $this;
+    }
 
-        $this->setInitials(strtoupper($firstInitial.$secondInitial));
+    /**
+     * Returns the picked combination of colors
+     * for gradient.
+     */
+    public function getGradientSet(): array
+    {
+        return $this->gradientSet;
+    }
+
+    /**
+     * Set combination of colors and offsets.
+     */
+    protected function setGradientSet(): static
+    {
+        // Choose one randomly from the list
+        // of prepared gradient sets.
+        $set = Arr::random($this->zip());
+
+        $this->gradientSet = $set;
 
         return $this;
     }
@@ -326,6 +358,7 @@ class SvgAvatarGenerator
      * @throws InvalidFontSizeException
      * @throws InvalidGradientRotationException
      * @throws InvalidSvgSizeException
+     * @throws InvalidGradientStopException
      */
     protected function build(): void
     {
@@ -336,10 +369,8 @@ class SvgAvatarGenerator
             ->setFontWeight($this->config['font_weight'])
             ->setForeground($this->config['foreground'])
             ->setGradientRotation($this->config['gradient_rotation'])
-            ->setGradientColors(
-                $this->config['gradient_colors'][0],
-                $this->config['gradient_colors'][1]
-            );
+            ->setGradientColors(...$this->config['gradient_colors'])
+            ->setGradientStops(...$this->config['gradient_stops']);
     }
 
     /**
@@ -350,6 +381,7 @@ class SvgAvatarGenerator
     public function render(): Svg
     {
         $this->extractInitials();
+        $this->setGradientSet();
 
         return new Svg($this);
     }

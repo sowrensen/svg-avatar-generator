@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidFontSizeException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientRotationException;
+use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientStopException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidSvgSizeException;
 use Sowren\SvgAvatarGenerator\Exceptions\MissingTextException;
 use Sowren\SvgAvatarGenerator\SvgAvatarGenerator;
@@ -18,6 +19,7 @@ class SvgController
      * @throws MissingTextException
      * @throws InvalidSvgSizeException
      * @throws InvalidFontSizeException
+     * @throws InvalidGradientStopException
      * @throws InvalidGradientRotationException
      */
     public function __invoke(Request $request): Response

@@ -19,4 +19,10 @@ class SvgAvatarGeneratorServiceProvider extends PackageServiceProvider
             ->hasConfigFile('svg-avatar')
             ->hasRoute('web');
     }
+
+    public function bootingPackage()
+    {
+        // We are not going to publish these views
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'svg');
+    }
 }
