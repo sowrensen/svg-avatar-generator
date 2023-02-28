@@ -4,7 +4,10 @@
     "keywords": [
         "sowrensen",
         "laravel",
-        "svg-avatar-generator"
+        "svg-avatar-generator",
+        "avatar",
+        "avatar-generator",
+        "svg-generator"
     ],
     "homepage": "https://github.com/sowrensen/svg-avatar-generator",
     "license": "MIT",
