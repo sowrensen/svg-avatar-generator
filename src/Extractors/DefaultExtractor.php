@@ -31,6 +31,6 @@ class DefaultExtractor implements Extractor
         // initial, else take the first letter of the last part.
         $secondInitial = ($parts->count() === 1) ? $parts->first()[1] : $parts->last()[0];
 
-        return strtoupper($firstInitial . $secondInitial);
+        return strtoupper($firstInitial.$secondInitial);
     }
 }

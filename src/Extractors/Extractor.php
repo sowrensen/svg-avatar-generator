@@ -2,8 +2,6 @@
 
 namespace Sowren\SvgAvatarGenerator\Extractors;
 
-use Sowren\SvgAvatarGenerator\Exceptions\MissingTextException;
-
 interface Extractor
 {
     /**

@@ -2,8 +2,8 @@
 
 namespace Sowren\SvgAvatarGenerator;
 
-use Spatie\LaravelPackageTools\Package;
 use Sowren\SvgAvatarGenerator\Extractors\Extractor;
+use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class SvgAvatarGeneratorServiceProvider extends PackageServiceProvider
