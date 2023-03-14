@@ -31,7 +31,23 @@ return [
     | Allowed: Shape::CIRCLE or Shape::RECTANGLE
     |
     */
-    'shape' => \Sowren\SvgAvatarGenerator\Enums\Shape::CIRCLE,
+    'shape' => \Sowren\SvgAvatarGenerator\Enums\Shape::RECTANGLE,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Corner Radius
+    |--------------------------------------------------------------------------
+    |
+    | You can define the corner radius of the Rectangle shape to achieve a
+    | nice rounder corner. This setting only has effect when Shape is
+    | set to Rectangle.
+    |
+    | Type: int
+    | Default: 0
+    | Allowed: 0 to 25
+    |
+    */
+    'corner_radius' => 0,
 
     /*
     |--------------------------------------------------------------------------
@@ -182,4 +198,6 @@ return [
     |
     */
     'url' => 'svg-avatar',
+
+    ''
 ];

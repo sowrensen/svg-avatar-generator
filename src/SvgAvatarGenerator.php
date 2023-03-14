@@ -6,6 +6,7 @@ use Arr;
 use Sowren\SvgAvatarGenerator\Concerns\Tool;
 use Sowren\SvgAvatarGenerator\Enums\FontWeight;
 use Sowren\SvgAvatarGenerator\Enums\Shape;
+use Sowren\SvgAvatarGenerator\Exceptions\InvalidCornerRadius;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidFontSizeException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientRotationException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientStopException;
@@ -31,6 +32,8 @@ class SvgAvatarGenerator
      * Shape of the SVG, either Circle or Rectangle.
      */
     protected Shape $shape;
+
+    protected int $cornerRadius;
 
     /**
      * Font size of the SVG.
@@ -78,6 +81,7 @@ class SvgAvatarGenerator
     public Extractor $extractor;
 
     /**
+     * @throws InvalidCornerRadius
      * @throws InvalidSvgSizeException
      * @throws InvalidFontSizeException
      * @throws InvalidGradientStopException
@@ -182,6 +186,29 @@ class SvgAvatarGenerator
     public function asRectangle(): static
     {
         $this->shape = Shape::RECTANGLE;
+
+        return $this;
+    }
+
+    /**
+     * Get corner radius of rectangular shape.
+     */
+    public function getCornerRadius(): int
+    {
+        return $this->cornerRadius;
+    }
+
+    /**
+     * Set corner radius of rectangular shape.
+     * @throws InvalidCornerRadius
+     */
+    public function setCornerRadius(int $radius): static
+    {
+        if ($radius < 0 || $radius > 25) {
+            throw InvalidCornerRadius::create($radius);
+        }
+
+        $this->cornerRadius = $radius;
 
         return $this;
     }
@@ -350,6 +377,7 @@ class SvgAvatarGenerator
     /**
      * Set default values from config.
      *
+     * @throws InvalidCornerRadius
      * @throws InvalidFontSizeException
      * @throws InvalidGradientRotationException
      * @throws InvalidSvgSizeException
@@ -360,6 +388,7 @@ class SvgAvatarGenerator
         $this
             ->setSize($this->config['size'])
             ->setShape($this->config['shape'])
+            ->setCornerRadius($this->config['corner_radius'])
             ->setFontSize($this->config['font_size'])
             ->setFontWeight($this->config['font_weight'])
             ->setForeground($this->config['foreground'])
