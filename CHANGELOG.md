@@ -2,6 +2,11 @@
 
 All notable changes to `svg-avatar-generator` will be documented in this file.
 
+## 1.2.0
+
+- Support for custom extractor.
+- New key `extractor` in **svg-avatar** config.
+
 ## 1.1.0
 
 - Support for setting multiple sets of gradient colors.

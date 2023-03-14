@@ -2,6 +2,7 @@
 
 namespace Sowren\SvgAvatarGenerator;
 
+use Sowren\SvgAvatarGenerator\Extractors\Extractor;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -24,5 +25,10 @@ class SvgAvatarGeneratorServiceProvider extends PackageServiceProvider
     {
         // We are not going to publish these views
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'svg');
+    }
+
+    public function registeringPackage()
+    {
+        $this->app->singleton(Extractor::class, fn () => new (config('svg-avatar.extractor')));
     }
 }

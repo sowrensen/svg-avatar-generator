@@ -11,6 +11,7 @@ use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientRotationException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientStopException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidSvgSizeException;
 use Sowren\SvgAvatarGenerator\Exceptions\MissingTextException;
+use Sowren\SvgAvatarGenerator\Extractors\Extractor;
 
 class SvgAvatarGenerator
 {
@@ -72,6 +73,11 @@ class SvgAvatarGenerator
     private array $config;
 
     /**
+     * Instance of predefined extractor.
+     */
+    public Extractor $extractor;
+
+    /**
      * @throws InvalidSvgSizeException
      * @throws InvalidFontSizeException
      * @throws InvalidGradientStopException
@@ -80,23 +86,12 @@ class SvgAvatarGenerator
     public function __construct(public ?string $text = null)
     {
         $this->config = config('svg-avatar');
+        $this->extractor = app(Extractor::class);
         $this->build();
     }
 
     /**
-     * Set the text or name to be used in the SVG. If only one word
-     * is given, it will look for second capital character in the
-     * word, else the consecutive second character will be taken.
-     *
-     * Examples:
-     *
-     * 'John Doe' will produce 'JD'
-     *
-     * 'JohnDoe' will produce 'JD'
-     *
-     * 'Johndoe' will produce 'JO'
-     *
-     * 'JohndoE' will produce 'JE'
+     * Set the text or name to be used in the SVG.
      */
     public function for(string $text): static
     {
