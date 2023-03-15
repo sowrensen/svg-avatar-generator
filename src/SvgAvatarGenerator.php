@@ -200,6 +200,7 @@ class SvgAvatarGenerator
 
     /**
      * Set corner radius of rectangular shape.
+     *
      * @throws InvalidCornerRadius
      */
     public function setCornerRadius(int $radius): static
