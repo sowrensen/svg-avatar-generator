@@ -198,4 +198,18 @@ return [
     |
     */
     'url' => 'svg-avatar',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Middleware
+    |--------------------------------------------------------------------------
+    |
+    | The route is public by default. To prevent unwanted and unauthenticated
+    | usage, you can set a middleware (e.g., 'auth', or ['auth']) here.
+    |
+    | Type: array<string>|string
+    | Default: null
+    |
+    */
+    'middleware' => null
 ];
