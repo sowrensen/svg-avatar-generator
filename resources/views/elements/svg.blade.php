@@ -16,8 +16,8 @@
     </defs>
     @include($generator->getShape()->render())
     <text
-        x="50%" y="50%" style="line-height: 1;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;"
+        x="50%" y="50%" style="line-height: 1;"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif"
         alignment-baseline="middle" text-anchor="middle"
         font-size="{{ $generator->getFontSize() }}"
         font-weight="{{ $generator->getFontWeight()->value }}"

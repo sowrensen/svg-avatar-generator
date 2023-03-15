@@ -198,6 +198,4 @@ return [
     |
     */
     'url' => 'svg-avatar',
-
-    ''
 ];
