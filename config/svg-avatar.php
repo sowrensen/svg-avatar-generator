@@ -211,5 +211,5 @@ return [
     | Default: null
     |
     */
-    'middleware' => null
+    'middleware' => null,
 ];
