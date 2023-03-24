@@ -2,6 +2,12 @@
 
 All notable changes to `svg-avatar-generator` will be documented in this file.
 
+## 1.3.0
+
+- Support for rounded corners.
+- Support for route middleware.
+- New keys `corner_radius` and `middleware` in config.
+
 ## 1.2.0
 
 - Support for custom extractor.

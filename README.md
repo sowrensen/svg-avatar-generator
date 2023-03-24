@@ -4,6 +4,8 @@
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/sowrensen/svg-avatar-generator/run-tests.yml?branch=main&label=Tests)](https://github.com/sowrensen/svg-avatar-generator/actions?query=workflow%3ATests+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/sowrensen/svg-avatar-generator.svg)](https://packagist.org/packages/sowrensen/svg-avatar-generator)
 
+> If you find this package useful, please consider to ⭐ it. That would be lit!
+
 Generating SVG avatars on the fly is nothing new. There are tons of free/paid services and packages available to do that. So, why
 another package for same task?
 
@@ -15,6 +17,7 @@ Well, this one has some subtle but nifty advantages over available packages, her
 - [x] Doesn't have any binary dependency, so nothing needs to be installed on server. 🗃️
 - [x] Supports gradient background. 🦜
 - [x] Supports random gradients based on defined presets in config. 🦚
+- [x] Multiple shapes: rectangular, rounded-rectangular, or circular. 💎
 - [x] Ability to customize initials and extractor. ✍🏼
 
 ## Requirements
@@ -80,7 +83,7 @@ use Sowren\SvgAvatarGenerator\Facades\Svg;
 use Sowren\SvgAvatarGenerator\Enums\FontWeight;
 
 Svg::for('John Doe')
-    ->asCircle() // or, asRectangle()
+    ->asCircle() // or, asRectangle() along with optional setCornerRadius($radius) method
     ->setSize(64)
     ->setFontSize(40)
     ->setFontWeight(FontWeight::SEMIBOLD)
@@ -135,8 +138,7 @@ After doing that, set the class as default extractor in config.
 
 ## Sample Output
 
-<img src="https://user-images.githubusercontent.com/13097375/221879852-b8283a4a-f3ff-42a9-b37a-07cbc9bd0afe.png" height="128"/>
-
+<img src="https://user-images.githubusercontent.com/13097375/227495887-99a0430f-925f-4f1f-acac-0dca21686bfd.png" height="128"/>
 
 ## Testing
 
