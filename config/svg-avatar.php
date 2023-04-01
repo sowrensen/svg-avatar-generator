@@ -31,7 +31,7 @@ return [
     | Allowed: Shape::CIRCLE or Shape::RECTANGLE
     |
     */
-    'shape' => \Sowren\SvgAvatarGenerator\Enums\Shape::RECTANGLE,
+    'shape' => \Sowren\SvgAvatarGenerator\Enums\Shape::CIRCLE,
 
     /*
     |--------------------------------------------------------------------------

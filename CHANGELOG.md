@@ -2,6 +2,10 @@
 
 All notable changes to `svg-avatar-generator` will be documented in this file.
 
+## 1.3.1
+
+- Revert `Shape::CIRCLE` back as default shape which was changed to `Shape::RECTANGLE` by mistake.
+
 ## 1.3.0
 
 - Support for rounded corners.
