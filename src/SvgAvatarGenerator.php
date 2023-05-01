@@ -33,6 +33,9 @@ class SvgAvatarGenerator
      */
     protected Shape $shape;
 
+    /**
+     * Corner radius of Rectangle shape.
+     */
     protected int $cornerRadius;
 
     /**
