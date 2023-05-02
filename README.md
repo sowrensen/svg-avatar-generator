@@ -40,6 +40,8 @@ Optionally, you can publish the config file with:
 php artisan vendor:publish --tag="svg-avatar-generator-config"
 ```
 
+> ⚠️ You should republish the config file after updating.
+
 ## Usage
 
 ### As model accessor
