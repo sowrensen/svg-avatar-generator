@@ -141,7 +141,7 @@ After doing that, set the class as default extractor in config.
 
 ## Sample Output
 
-<img src="https://user-images.githubusercontent.com/13097375/227495887-99a0430f-925f-4f1f-acac-0dca21686bfd.png" height="128"/>
+<img src="https://user-images.githubusercontent.com/13097375/235597587-791dc36f-640a-47a2-8717-337edcfe3612.png" height="128"/>
 
 ## Testing
 
