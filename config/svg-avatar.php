@@ -51,6 +51,38 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Custom Font URL
+    |--------------------------------------------------------------------------
+    |
+    | Specify the URL of the font family you want to use. You can use
+    | Google Fonts, Fontshare or other services.
+    |
+    | e.g. https://api.fontshare.com/v2/css?f[]=kola@400&display=swap
+    |
+    | Type: string
+    | Default: null
+    |
+    */
+    'custom_font_url' => null,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Font Family
+    |--------------------------------------------------------------------------
+    |
+    | If you are using a custom font, specify the name of the family here,
+    | otherwise it won't work. For example, for the URL in the previous
+    | `custom_font_url` section's example, you should define 'Kola'
+    | as the family name in this key.
+    |
+    | Type: string
+    | Default: null
+    |
+    */
+    'font_family' => null,
+
+    /*
+    |--------------------------------------------------------------------------
     | Font Size
     |--------------------------------------------------------------------------
     |
