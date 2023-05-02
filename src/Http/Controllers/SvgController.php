@@ -10,6 +10,7 @@ use Sowren\SvgAvatarGenerator\Exceptions\InvalidFontSizeException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientRotationException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientStopException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidSvgSizeException;
+use Sowren\SvgAvatarGenerator\Exceptions\InvalidUrlException;
 use Sowren\SvgAvatarGenerator\Exceptions\MissingTextException;
 use Sowren\SvgAvatarGenerator\SvgAvatarGenerator;
 
@@ -24,6 +25,7 @@ class SvgController extends Controller
      * Generate an SVG and send it as an HTTP response.
      *
      * @throws InvalidCornerRadius
+     * @throws InvalidUrlException
      * @throws MissingTextException
      * @throws InvalidSvgSizeException
      * @throws InvalidFontSizeException

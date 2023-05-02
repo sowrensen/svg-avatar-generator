@@ -11,14 +11,15 @@ another package for same task?
 
 Well, this one has some subtle but nifty advantages over available packages, here's a few of them:
 
-- [x] No external api call is required, it's totally offline. 🛰️
-- [x] Unlike some other available options, doesn't require heavy-weight image processing libraries like **Intervention**.
-  🧺
-- [x] Doesn't have any binary dependency, so nothing needs to be installed on server. 🗃️
+- [x] Supports custom font. 🧣
 - [x] Supports gradient background. 🦜
 - [x] Supports random gradients based on defined presets in config. 🦚
 - [x] Multiple shapes: rectangular, rounded-rectangular, or circular. 💎
 - [x] Ability to customize initials and extractor. ✍🏼
+- [x] No external api call is required, it's totally offline. 🛰️
+- [x] Unlike some other available options, doesn't require heavy-weight image processing libraries like **Intervention**.
+  🧺
+- [x] Doesn't have any binary dependency, so nothing needs to be installed on server. 🗃️
 
 ## Requirements
 
@@ -85,6 +86,8 @@ use Sowren\SvgAvatarGenerator\Enums\FontWeight;
 Svg::for('John Doe')
     ->asCircle() // or, asRectangle() along with optional setCornerRadius($radius) method
     ->setSize(64)
+    ->setCustomFontUrl('https://api.fontshare.com/v2/css?f[]=kola@400&display=swap')
+    ->setFontFamily('Kola')
     ->setFontSize(40)
     ->setFontWeight(FontWeight::SEMIBOLD)
     ->setForeground('#FFFFFF')
@@ -138,7 +141,7 @@ After doing that, set the class as default extractor in config.
 
 ## Sample Output
 
-<img src="https://user-images.githubusercontent.com/13097375/227495887-99a0430f-925f-4f1f-acac-0dca21686bfd.png" height="128"/>
+<img src="https://user-images.githubusercontent.com/13097375/235597587-791dc36f-640a-47a2-8717-337edcfe3612.png" height="128"/>
 
 ## Testing
 

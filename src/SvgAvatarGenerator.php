@@ -11,8 +11,10 @@ use Sowren\SvgAvatarGenerator\Exceptions\InvalidFontSizeException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientRotationException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientStopException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidSvgSizeException;
+use Sowren\SvgAvatarGenerator\Exceptions\InvalidUrlException;
 use Sowren\SvgAvatarGenerator\Exceptions\MissingTextException;
 use Sowren\SvgAvatarGenerator\Extractors\Extractor;
+use URL;
 
 class SvgAvatarGenerator
 {
@@ -33,7 +35,20 @@ class SvgAvatarGenerator
      */
     protected Shape $shape;
 
+    /**
+     * Corner radius of Rectangle shape.
+     */
     protected int $cornerRadius;
+
+    /**
+     * URL of the custom font family.
+     */
+    protected ?string $customFontUrl;
+
+    /**
+     * Name of the font family.
+     */
+    protected ?string $fontFamily;
 
     /**
      * Font size of the SVG.
@@ -82,6 +97,7 @@ class SvgAvatarGenerator
 
     /**
      * @throws InvalidCornerRadius
+     * @throws InvalidUrlException
      * @throws InvalidSvgSizeException
      * @throws InvalidFontSizeException
      * @throws InvalidGradientStopException
@@ -210,6 +226,48 @@ class SvgAvatarGenerator
         }
 
         $this->cornerRadius = $radius;
+
+        return $this;
+    }
+
+    /**
+     * Get the custom font url.
+     */
+    public function getCustomFontUrl(): ?string
+    {
+        return $this->customFontUrl;
+    }
+
+    /**
+     * Set the custom font url.
+     *
+     * @throws InvalidUrlException
+     */
+    public function setCustomFontUrl(?string $url = null): static
+    {
+        if (! empty($url) && ! URL::isValidUrl($url)) {
+            throw InvalidUrlException::create($url);
+        }
+
+        $this->customFontUrl = $url;
+
+        return $this;
+    }
+
+    /**
+     * Get the SVG font family.
+     */
+    public function getFontFamily(): ?string
+    {
+        return $this->fontFamily;
+    }
+
+    /**
+     * Set the SVG font family.
+     */
+    public function setFontFamily(?string $name = null): static
+    {
+        $this->fontFamily = $name;
 
         return $this;
     }
@@ -383,6 +441,7 @@ class SvgAvatarGenerator
      * @throws InvalidGradientRotationException
      * @throws InvalidSvgSizeException
      * @throws InvalidGradientStopException
+     * @throws InvalidUrlException
      */
     protected function build(): void
     {
@@ -390,6 +449,8 @@ class SvgAvatarGenerator
             ->setSize($this->config['size'])
             ->setShape($this->config['shape'])
             ->setCornerRadius($this->config['corner_radius'])
+            ->setCustomFontUrl($this->config['custom_font_url'] ?? null)
+            ->setFontFamily($this->config['font_family'] ?? null)
             ->setFontSize($this->config['font_size'])
             ->setFontWeight($this->config['font_weight'])
             ->setForeground($this->config['foreground'])
