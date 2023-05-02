@@ -6,6 +6,6 @@ class InvalidUrlException extends \Exception
 {
     public static function create(string $url): InvalidUrlException
     {
-        return new self("Invalid URL {$url} is provided.");
+        return new self("`{$url}` is not a valid URL.");
     }
 }

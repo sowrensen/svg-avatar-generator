@@ -4,7 +4,7 @@
      */
 @endphp
 
-@if($url = $generator->getCustomFontUrl())
+@if(($url = $generator->getCustomFontUrl()) && ($family = $generator->getFontFamily()))
     <style>
         /*<![CDATA[*/
         @import url({{ $url }});
@@ -12,7 +12,7 @@
     </style>
     <style>
         svg {
-            font-family: {{ $generator->getFontFamily() }}, "sans-serif";
+            font-family: {{ $family }}, "sans-serif";
         }
     </style>
 @else
