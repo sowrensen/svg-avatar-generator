@@ -2,6 +2,12 @@
 
 All notable changes to `svg-avatar-generator` will be documented in this file.
 
+## 1.4.0
+
+- Support for custom fonts.
+- New keys `custom_font_url` and `font_family` in config.
+- Moved font family config to `font-family.blade.php` file.
+
 ## 1.3.1
 
 - Revert `Shape::CIRCLE` back as default shape which was changed to `Shape::RECTANGLE` by mistake.
