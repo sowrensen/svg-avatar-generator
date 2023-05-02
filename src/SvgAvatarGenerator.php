@@ -3,20 +3,18 @@
 namespace Sowren\SvgAvatarGenerator;
 
 use Arr;
-use URL;
-use Validator;
-use Exception;
 use Sowren\SvgAvatarGenerator\Concerns\Tool;
 use Sowren\SvgAvatarGenerator\Enums\FontWeight;
 use Sowren\SvgAvatarGenerator\Enums\Shape;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidCornerRadius;
-use Sowren\SvgAvatarGenerator\Exceptions\InvalidUrlException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidFontSizeException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientRotationException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientStopException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidSvgSizeException;
+use Sowren\SvgAvatarGenerator\Exceptions\InvalidUrlException;
 use Sowren\SvgAvatarGenerator\Exceptions\MissingTextException;
 use Sowren\SvgAvatarGenerator\Extractors\Extractor;
+use URL;
 
 class SvgAvatarGenerator
 {
@@ -247,13 +245,13 @@ class SvgAvatarGenerator
      */
     public function setCustomFontUrl(?string $url = null): static
     {
-       if (!empty($url) && ! URL::isValidUrl($url)) {
-           throw InvalidUrlException::create($url);
-       }
+        if (! empty($url) && ! URL::isValidUrl($url)) {
+            throw InvalidUrlException::create($url);
+        }
 
-       $this->customFontUrl = $url;
+        $this->customFontUrl = $url;
 
-       return $this;
+        return $this;
     }
 
     /**

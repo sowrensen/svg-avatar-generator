@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidCornerRadius;
-use Sowren\SvgAvatarGenerator\Exceptions\InvalidUrlException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidFontSizeException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientRotationException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientStopException;
 use Sowren\SvgAvatarGenerator\Exceptions\InvalidSvgSizeException;
+use Sowren\SvgAvatarGenerator\Exceptions\InvalidUrlException;
 use Sowren\SvgAvatarGenerator\Exceptions\MissingTextException;
 use Sowren\SvgAvatarGenerator\SvgAvatarGenerator;
 
