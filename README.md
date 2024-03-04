@@ -39,8 +39,8 @@ Optionally, you can publish the config file with:
 ```bash
 php artisan vendor:publish --tag="svg-avatar-generator-config"
 ```
-
-> ⚠️ You should republish the config file after updating.
+> [!WARNING]
+> You should republish the config file after updating.
 
 ## Usage
 
@@ -73,7 +73,8 @@ class User extends Model
 }
 ```
 
-> **Note**: If your accessor is different from the original attribute, you might want to put it in `$appends` array so
+> [!NOTE] 
+> If your accessor is different from the original attribute, you might want to put it in `$appends` array so
 > that it loads automatically with your model.
 
 ### Override default config
