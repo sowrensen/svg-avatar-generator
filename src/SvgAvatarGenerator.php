@@ -313,7 +313,7 @@ class SvgAvatarGenerator
      */
     public function setGradientRotation(int $angle): static
     {
-        ConfigValidator::validate('gradiant_rotation', $angle);
+        ConfigValidator::validate('gradient_rotation', $angle);
 
         $this->gradientRotation = $angle;
 
@@ -362,7 +362,7 @@ class SvgAvatarGenerator
      */
     public function setGradientStops(int|float ...$offsets): static
     {
-        ConfigValidator::validate('gradiant_stops', $offsets);
+        ConfigValidator::validate('gradient_stops', $offsets);
 
         $this->gradientStops = $offsets;
 

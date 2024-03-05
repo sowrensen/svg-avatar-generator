@@ -11,9 +11,9 @@ class ConfigValidator
     protected static array $rules = [
         'corner_radius' => ['int', 'between:0,25'],
         'font_size' => ['int', 'between:10,50'],
-        'gradiant_rotation' => ['int', 'between:0,360'],
-        'gradiant_stops' => ['array'],
-        'gradiant_stops.*' => ['numeric', 'between:0,1'],
+        'gradient_rotation' => ['int', 'between:0,360'],
+        'gradient_stops' => ['array'],
+        'gradient_stops.*' => ['numeric', 'between:0,1'],
         'svg_size' => ['int', 'between:16,512'],
         'custom_font_url' => ['nullable', 'url'],
         'svg_text' => ['required', 'string'],

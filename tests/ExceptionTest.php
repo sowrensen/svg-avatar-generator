@@ -26,12 +26,12 @@ it('will throw exception if font size greater than maximum is provided', functio
 it('will throw exception if gradient rotation less than minimum is provided', function () {
     config(['svg-avatar.gradient_rotation' => -1]);
     new SvgAvatarGenerator('Brandon Stark');
-})->throws(ValidationException::class)->expectExceptionMessageMatches('/The gradiant rotation(?: field)? must be between 0 and 360/');
+})->throws(ValidationException::class)->expectExceptionMessageMatches('/The gradient rotation(?: field)? must be between 0 and 360/');
 
 it('will throw exception if gradient rotation greater than maximum is provided', function () {
     config(['svg-avatar.gradient_rotation' => 361]);
     new SvgAvatarGenerator('Rickon Stark');
-})->throws(ValidationException::class)->expectExceptionMessageMatches('/The gradiant rotation(?: field)? must be between 0 and 360/');
+})->throws(ValidationException::class)->expectExceptionMessageMatches('/The gradient rotation(?: field)? must be between 0 and 360/');
 
 it('will throw missing text exception if text is not set', function () {
     $generator = new SvgAvatarGenerator();
@@ -41,12 +41,12 @@ it('will throw missing text exception if text is not set', function () {
 it('will throw exception if gradient stop less than minimum is provided', function () {
     config(['svg-avatar.gradient_stops' => [-1, 0.5]]);
     new SvgAvatarGenerator('Lyanna Stark');
-})->throws(ValidationException::class)->expectExceptionMessageMatches('/The gradiant_stops.0(?: field)? must be between 0 and 1/');
+})->throws(ValidationException::class)->expectExceptionMessageMatches('/The gradient_stops.0(?: field)? must be between 0 and 1/');
 
 it('will throw exception if gradient stop greater than maximum is provided', function () {
     config(['svg-avatar.gradient_stops' => [0.2, 2]]);
     new SvgAvatarGenerator('Benjen Stark');
-})->throws(ValidationException::class)->expectExceptionMessageMatches('/The gradiant_stops.1(?: field)? must be between 0 and 1/');
+})->throws(ValidationException::class)->expectExceptionMessageMatches('/The gradient_stops.1(?: field)? must be between 0 and 1/');
 
 it('will throw exception if invalid font url is provided', function () {
     config(['svg-avatar.custom_font_url' => 'invalid_url']);
