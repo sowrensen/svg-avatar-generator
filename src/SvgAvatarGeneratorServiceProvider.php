@@ -21,13 +21,13 @@ class SvgAvatarGeneratorServiceProvider extends PackageServiceProvider
             ->hasRoute('web');
     }
 
-    public function bootingPackage()
+    public function bootingPackage(): void
     {
         // We are not going to publish these views
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'svg');
     }
 
-    public function registeringPackage()
+    public function registeringPackage(): void
     {
         $this->app->singleton(Extractor::class, fn () => new (config('svg-avatar.extractor')));
     }

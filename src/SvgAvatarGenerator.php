@@ -6,15 +6,8 @@ use Arr;
 use Sowren\SvgAvatarGenerator\Concerns\Tool;
 use Sowren\SvgAvatarGenerator\Enums\FontWeight;
 use Sowren\SvgAvatarGenerator\Enums\Shape;
-use Sowren\SvgAvatarGenerator\Exceptions\InvalidCornerRadius;
-use Sowren\SvgAvatarGenerator\Exceptions\InvalidFontSizeException;
-use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientRotationException;
-use Sowren\SvgAvatarGenerator\Exceptions\InvalidGradientStopException;
-use Sowren\SvgAvatarGenerator\Exceptions\InvalidSvgSizeException;
-use Sowren\SvgAvatarGenerator\Exceptions\InvalidUrlException;
-use Sowren\SvgAvatarGenerator\Exceptions\MissingTextException;
+use Sowren\SvgAvatarGenerator\Validators\ConfigValidator;
 use Sowren\SvgAvatarGenerator\Extractors\Extractor;
-use URL;
 
 class SvgAvatarGenerator
 {
@@ -23,7 +16,7 @@ class SvgAvatarGenerator
     /**
      * Initials to be put in SVG.
      */
-    protected string $initials = '';
+    private string $initials = '';
 
     /**
      * Size of the SVG.
@@ -88,21 +81,13 @@ class SvgAvatarGenerator
     /**
      * Array to hold default config.
      */
-    private array $config;
+    protected array $config;
 
     /**
      * Instance of predefined extractor.
      */
-    public Extractor $extractor;
+    protected Extractor $extractor;
 
-    /**
-     * @throws InvalidCornerRadius
-     * @throws InvalidUrlException
-     * @throws InvalidSvgSizeException
-     * @throws InvalidFontSizeException
-     * @throws InvalidGradientStopException
-     * @throws InvalidGradientRotationException
-     */
     public function __construct(public ?string $text = null)
     {
         $this->config = config('svg-avatar');
@@ -122,8 +107,6 @@ class SvgAvatarGenerator
 
     /**
      * Get generated initials.
-     *
-     * @throws MissingTextException
      */
     public function getInitials(): string
     {
@@ -155,14 +138,10 @@ class SvgAvatarGenerator
     /**
      * Set the SVG size between 16 and 512. The generated
      * SVG is square always.
-     *
-     * @throws InvalidSvgSizeException
      */
     public function setSize(int $size): static
     {
-        if ($size < 16 || $size > 512) {
-            throw InvalidSvgSizeException::create($size);
-        }
+        ConfigValidator::validate('svg_size', $size);
 
         $this->size = $size;
 
@@ -216,14 +195,10 @@ class SvgAvatarGenerator
 
     /**
      * Set corner radius of rectangular shape.
-     *
-     * @throws InvalidCornerRadius
      */
     public function setCornerRadius(int $radius): static
     {
-        if ($radius < 0 || $radius > 25) {
-            throw InvalidCornerRadius::create($radius);
-        }
+        ConfigValidator::validate('corner_radius', $radius);
 
         $this->cornerRadius = $radius;
 
@@ -240,14 +215,10 @@ class SvgAvatarGenerator
 
     /**
      * Set the custom font url.
-     *
-     * @throws InvalidUrlException
      */
     public function setCustomFontUrl(?string $url = null): static
     {
-        if (! empty($url) && ! URL::isValidUrl($url)) {
-            throw InvalidUrlException::create($url);
-        }
+        ConfigValidator::validate('custom_font_url', $url);
 
         $this->customFontUrl = $url;
 
@@ -282,14 +253,10 @@ class SvgAvatarGenerator
 
     /**
      * Set font size of the SVG between 10 and 50.
-     *
-     * @throws InvalidFontSizeException
      */
     public function setFontSize(int $fontSize): static
     {
-        if ($fontSize < 10 || $fontSize > 50) {
-            throw InvalidFontSizeException::create($fontSize);
-        }
+        ConfigValidator::validate('font_size', $fontSize);
 
         $this->fontSize = $fontSize;
 
@@ -343,14 +310,10 @@ class SvgAvatarGenerator
 
     /**
      * Set the angle of the color gradient rotation between 0 and 360.
-     *
-     * @throws InvalidGradientRotationException
      */
     public function setGradientRotation(int $angle): static
     {
-        if ($angle < 0 || $angle > 360) {
-            throw InvalidGradientRotationException::create($angle);
-        }
+        ConfigValidator::validate('gradiant_rotation', $angle);
 
         $this->gradientRotation = $angle;
 
@@ -396,14 +359,10 @@ class SvgAvatarGenerator
 
     /**
      * Set stop positions of gradients.
-     *
-     * @throws InvalidGradientStopException
      */
     public function setGradientStops(int|float ...$offsets): static
     {
-        if ((min($offsets) < 0) || max($offsets) > 1) {
-            throw InvalidGradientStopException::create($offsets);
-        }
+        ConfigValidator::validate('gradiant_stops', $offsets);
 
         $this->gradientStops = $offsets;
 
@@ -435,13 +394,6 @@ class SvgAvatarGenerator
 
     /**
      * Set default values from config.
-     *
-     * @throws InvalidCornerRadius
-     * @throws InvalidFontSizeException
-     * @throws InvalidGradientRotationException
-     * @throws InvalidSvgSizeException
-     * @throws InvalidGradientStopException
-     * @throws InvalidUrlException
      */
     protected function build(): void
     {
@@ -461,8 +413,6 @@ class SvgAvatarGenerator
 
     /**
      * Render the SVG.
-     *
-     * @throws MissingTextException
      */
     public function render(): Svg
     {

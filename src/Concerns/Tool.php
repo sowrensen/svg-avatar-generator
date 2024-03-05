@@ -3,20 +3,16 @@
 namespace Sowren\SvgAvatarGenerator\Concerns;
 
 use Arr;
-use Sowren\SvgAvatarGenerator\Exceptions\MissingTextException;
+use Sowren\SvgAvatarGenerator\Validators\ConfigValidator;
 
 trait Tool
 {
     /**
      * Extract initials using configured extractor.
-     *
-     * @throws MissingTextException
      */
     protected function extractInitials(): void
     {
-        if (! $this->text) {
-            throw MissingTextException::create();
-        }
+        ConfigValidator::validate('svg_text', $this->text);
 
         $initials = $this->extractor->extract($this->text);
         $this->setInitials($initials);
