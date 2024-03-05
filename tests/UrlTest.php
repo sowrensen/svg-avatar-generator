@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-use Sowren\SvgAvatarGenerator\Exceptions\MissingTextException;
+use Illuminate\Validation\ValidationException;
 use Sowren\SvgAvatarGenerator\Http\Controllers\SvgController;
 use Sowren\SvgAvatarGenerator\Svg;
 
@@ -33,4 +33,4 @@ it('will throw missing text exception if text is not set', function () {
     $request = new Request();
 
     $object($request);
-})->throws(MissingTextException::class);
+})->throws(ValidationException::class);
