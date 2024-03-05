@@ -16,7 +16,7 @@ class ConfigValidator
         'gradiant_stops.*' => ['numeric', 'between:0,1'],
         'svg_size' => ['int', 'between:16,512'],
         'custom_font_url' => ['nullable', 'url'],
-        'svg_text' => ['required', 'string']
+        'svg_text' => ['required', 'string'],
     ];
 
     public static function validate(string $key, mixed $value): array

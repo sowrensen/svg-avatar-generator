@@ -6,8 +6,8 @@ use Arr;
 use Sowren\SvgAvatarGenerator\Concerns\Tool;
 use Sowren\SvgAvatarGenerator\Enums\FontWeight;
 use Sowren\SvgAvatarGenerator\Enums\Shape;
-use Sowren\SvgAvatarGenerator\Validators\ConfigValidator;
 use Sowren\SvgAvatarGenerator\Extractors\Extractor;
+use Sowren\SvgAvatarGenerator\Validators\ConfigValidator;
 
 class SvgAvatarGenerator
 {

@@ -3,8 +3,8 @@
 namespace Sowren\SvgAvatarGenerator\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use Sowren\SvgAvatarGenerator\Enums\Shape;
 use Sowren\SvgAvatarGenerator\Enums\FontWeight;
+use Sowren\SvgAvatarGenerator\Enums\Shape;
 use Sowren\SvgAvatarGenerator\SvgAvatarGenerator;
 
 /**
