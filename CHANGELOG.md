@@ -2,6 +2,18 @@
 
 All notable changes to `svg-avatar-generator` will be documented in this file.
 
+## 1.4.2
+
+- Use laravel validation instead of manually checking configs.
+- Added `ConfigValidator` class to define and perform validations.
+- Changed modifiers for `$config` and `$extractor` in `SvgAvatarGenerator` class.
+- Removed stale exception classes.
+- Laravel 11 github workflows.
+
+## 1.4.1
+
+- Laravel 11 support.
+
 ## 1.4.0
 
 - Support for custom fonts.
