@@ -3,10 +3,9 @@
 namespace Sowren\SvgAvatarGenerator\Validators;
 
 use Arr;
+use Sowren\SvgAvatarGenerator\Rules\GradientColorSet;
 use Str;
 use Validator;
-use Sowren\SvgAvatarGenerator\Rules\GradientColorSet;
-
 
 class ConfigValidator
 {
