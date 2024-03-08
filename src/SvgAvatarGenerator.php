@@ -295,6 +295,8 @@ class SvgAvatarGenerator
      */
     public function setForeground(string $color): static
     {
+        ConfigValidator::validate('foreground', $color);
+
         $this->foreground = $color;
 
         return $this;
@@ -344,6 +346,8 @@ class SvgAvatarGenerator
      */
     public function setGradientColors(string|array ...$colors): static
     {
+        ConfigValidator::validate('gradient_colors', $colors);
+
         $this->gradientColors = $colors;
 
         return $this;
