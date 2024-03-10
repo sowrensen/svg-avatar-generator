@@ -34,6 +34,11 @@ Install the package via composer:
 composer require sowrensen/svg-avatar-generator
 ```
 
+> [!CAUTION]
+> **Breaking change**: Named color support, e.g. red, green in `foreground` and `gradient_colors` is dropped since version 2.0. 
+> If you're using such names in config or in code, you should change them to hexadecimal code or keep using
+> version 1.x releases.
+
 Optionally, you can publish the config file with:
 
 ```bash

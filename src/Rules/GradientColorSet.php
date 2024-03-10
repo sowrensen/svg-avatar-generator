@@ -2,6 +2,7 @@
 
 namespace Sowren\SvgAvatarGenerator\Rules;
 
+use Arr;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Validation\Concerns\ValidatesAttributes;
@@ -17,11 +18,15 @@ class GradientColorSet implements ValidationRule
             $fail('The :attribute field must be an array.');
         }
 
+        $hasMultipleSet = count(Arr::where($value, fn ($v) => is_array($v))) > 0;
+
         // Validate each item (array or string) in the array
-        $this->validateColorSet($attribute, $value, $fail);
+        $hasMultipleSet
+            ? $this->validateNestedColorSet($attribute, $value, $fail)
+            : $this->validateColorSet($attribute, $value, $fail);
     }
 
-    public function validateColorSet(string $attribute, array $value, Closure $fail): void
+    private function validateNestedColorSet(string $attribute, array $value, Closure $fail): void
     {
         foreach ($value as $index => $colorSet) {
             $keys = is_array($colorSet) ? array_keys($colorSet) : [$index];
@@ -38,6 +43,16 @@ class GradientColorSet implements ValidationRule
                     $fail("The :attribute.{$index}.{$nestedIndex} field must be a valid hexadecimal color.");
                     break;
                 }
+            }
+        }
+    }
+
+    private function validateColorSet(string $attribute, array $value, Closure $fail): void
+    {
+        foreach ($value as $index => $color) {
+            if (! $this->validateHexColor($attribute, $color)) {
+                $fail("The :attribute.{$index} field must be a valid hexadecimal color.");
+                break;
             }
         }
     }
