@@ -23,8 +23,8 @@ Well, this one has some subtle but nifty advantages over available packages, her
 
 ## Requirements
 
-- PHP >= 8.1
-- Laravel >= 9.0
+- PHP >= 8.2
+- Laravel >= 11.0
 
 ## Installation
 
@@ -44,7 +44,7 @@ Optionally, you can publish the config file with:
 ```bash
 php artisan vendor:publish --tag="svg-avatar-generator-config"
 ```
-> [!WARNING]
+> [!IMPORTANT]
 > You should republish the config file after updating.
 
 ## Usage
@@ -78,7 +78,7 @@ class User extends Model
 }
 ```
 
-> [!NOTE] 
+> [!TIP] 
 > If your accessor is different from the original attribute, you might want to put it in `$appends` array so
 > that it loads automatically with your model.
 
@@ -161,7 +161,7 @@ composer test
 
 ## Changelog
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+Please see respective `CHANGELOG-x.x` file for more information on what has changed recently.
 
 ## License
 

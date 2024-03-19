@@ -1,12 +1,6 @@
 # Changelog
 
-All notable changes to `svg-avatar-generator` will be documented in this file.
-
-## 1.4.3
-
-- New validator for `foreground` and `gradient_colors` config.
-- Use `rules()` static method instead of `$rules` property to define validation rules.
-- New `GradientColorSet` rule class to validate gradient colors structure.
+All notable changes to `svg-avatar-generator` **v1.x** will be documented in this file.
 
 ## 1.4.2
 
