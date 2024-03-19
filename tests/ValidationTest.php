@@ -52,3 +52,23 @@ it('will throw exception if invalid font url is provided', function () {
     config(['svg-avatar.custom_font_url' => 'invalid_url']);
     new SvgAvatarGenerator('Rickard Stark');
 })->throws(ValidationException::class)->expectExceptionMessageMatches('/The custom font url(?: field)? must be a valid URL/');
+
+it('will throw exception if invalid foreground color is provided', function () {
+    config(['svg-avatar.foreground' => 'red']); // named colors are not supported since 2.0.0
+    new SvgAvatarGenerator('Eddard Stark');
+})->throws(ValidationException::class)->expectExceptionMessageMatches('/The foreground(?: field)? must be a valid hexadecimal color/');
+
+it('will throw exception if invalid gradient colors are provided', function () {
+    config(['svg-avatar.gradient_colors' => ['#00FF00', 'red']]); // named colors are not supported since 2.0.0
+    new SvgAvatarGenerator('Catelyn Stark');
+})->throws(ValidationException::class)->expectExceptionMessageMatches('/The gradient colors.1(?: field)? must be a valid hexadecimal color/');
+
+it('will throw exception if gradient color structure is wrong', function () {
+    config([
+        'svg-avatar.gradient_colors' => [
+            '#00FF00',
+            [['#FF0000']],
+        ],
+    ]); // named colors are not supported since 2.0.0
+    new SvgAvatarGenerator('Theon Stark');
+})->throws(ValidationException::class)->expectExceptionMessageMatches('/The gradient colors.1.0(?: field)? must be a valid hexadecimal color/');

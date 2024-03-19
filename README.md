@@ -23,8 +23,8 @@ Well, this one has some subtle but nifty advantages over available packages, her
 
 ## Requirements
 
-- PHP >= 8.1
-- Laravel >= 9.0
+- PHP >= 8.2
+- Laravel >= 11.0
 
 ## Installation
 
@@ -34,12 +34,17 @@ Install the package via composer:
 composer require sowrensen/svg-avatar-generator
 ```
 
+> [!CAUTION]
+> **Breaking change**: Named color support, e.g. red, green in `foreground` and `gradient_colors` is dropped since version 2.0. 
+> If you're using such names in config or in code, you should change them to hexadecimal code or keep using
+> version 1.x releases.
+
 Optionally, you can publish the config file with:
 
 ```bash
 php artisan vendor:publish --tag="svg-avatar-generator-config"
 ```
-> [!WARNING]
+> [!IMPORTANT]
 > You should republish the config file after updating.
 
 ## Usage
@@ -73,7 +78,7 @@ class User extends Model
 }
 ```
 
-> [!NOTE] 
+> [!TIP] 
 > If your accessor is different from the original attribute, you might want to put it in `$appends` array so
 > that it loads automatically with your model.
 
@@ -156,7 +161,7 @@ composer test
 
 ## Changelog
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+Please see respective `CHANGELOG-x.x` file for more information on what has changed recently.
 
 ## License
 
