@@ -67,8 +67,8 @@ it('will throw exception if gradient color structure is wrong', function () {
     config([
         'svg-avatar.gradient_colors' => [
             '#00FF00',
-            [['#FF0000']]
-        ]
+            [['#FF0000']],
+        ],
     ]); // named colors are not supported since 2.0.0
     new SvgAvatarGenerator('Theon Stark');
 })->throws(ValidationException::class)->expectExceptionMessageMatches('/The gradient colors.1.0(?: field)? must be a valid hexadecimal color/');
