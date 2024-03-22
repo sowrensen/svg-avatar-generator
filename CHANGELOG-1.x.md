@@ -2,6 +2,11 @@
 
 All notable changes to `svg-avatar-generator` **v1.x** will be documented in this file.
 
+## 1.4.3
+
+- Separate workflow and branch for Laravel 11.
+- Fixed typo in files.
+
 ## 1.4.2
 
 - Use laravel validation instead of manually checking configs.
