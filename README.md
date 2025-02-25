@@ -25,7 +25,7 @@ Well, this one has some subtle but nifty advantages over available packages, her
 
 | Laravel  | PHP      | SVGAvatarGenerator |
 |----------|----------|:------------------:|
-| 11.x     | &gt;=8.2 |        2.x         |
+| >=11.x   | &gt;=8.2 |        2.x         |
 | 9.x-10.x | &gt;=8.1 |        1.x         |
 
 ## Installation
