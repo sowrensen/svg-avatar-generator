@@ -2,6 +2,12 @@
 
 All notable changes to `svg-avatar-generator` **v2.x** will be documented in this file.
 
+## 2.0.1
+
+- Added Laravel 12 support.
+- Removed `spatie/laravel-ray` from dev dependency.
+- Added Laravel 12 github workflow.
+
 ## 2.0.0
 
 - Supports Laravel 11 and onwards only.
