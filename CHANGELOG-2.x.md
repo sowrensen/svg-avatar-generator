@@ -2,6 +2,11 @@
 
 All notable changes to `svg-avatar-generator` **v2.x** will be documented in this file.
 
+## 2.0.2
+
+- Added Laravel 13 support.
+- Updated Laravel 13 github workflow.
+
 ## 2.0.1
 
 - Added Laravel 12 support.
