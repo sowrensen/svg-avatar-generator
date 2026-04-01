@@ -18,6 +18,9 @@ jobs:
             testbench: "10.*"
           - laravel: "^13.0"
             testbench: "11.*"
+        exclude:
+          - php: "8.2"
+            laravel: "^13.0"
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }}
 
