@@ -6,7 +6,8 @@
       "Bash(vendor/bin/pest --version 2>&1)",
       "Bash(vendor/bin/pest --no-coverage 2>&1)",
       "Bash(vendor/bin/pest --version)",
-      "Bash(vendor/bin/pest --no-coverage)"
+      "Bash(vendor/bin/pest --no-coverage)",
+      "mcp__browsermcp__browser_navigate"
     ]
   }
 }
