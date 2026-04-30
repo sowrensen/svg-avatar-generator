@@ -34,7 +34,7 @@ it('will throw exception if gradient rotation greater than maximum is provided',
 })->throws(ValidationException::class)->expectExceptionMessageMatches('/The gradient rotation(?: field)? must be between 0 and 360/');
 
 it('will throw missing text exception if text is not set', function () {
-    $generator = new SvgAvatarGenerator();
+    $generator = new SvgAvatarGenerator;
     $generator->getInitials();
 })->throws(ValidationException::class, 'The svg text field is required');
 
