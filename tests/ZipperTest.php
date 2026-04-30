@@ -3,7 +3,7 @@
 use Sowren\SvgAvatarGenerator\SvgAvatarGenerator;
 
 it('can make gradient set from single set of colors', function () {
-    $generator = new SvgAvatarGenerator();
+    $generator = new SvgAvatarGenerator;
     $generator->setGradientColors('#FF0000', '#00FF00', '#0000FF') // red, green, blue
         ->setGradientStops(0, .5, 1);
 
@@ -17,7 +17,7 @@ it('can make gradient set from single set of colors', function () {
 });
 
 it('can make gradient set from multiple sets of colors', function () {
-    $generator = new SvgAvatarGenerator();
+    $generator = new SvgAvatarGenerator;
     $generator->setGradientColors(['#FF0000', '#00FF00', '#FFFF00'], '#0000FF') // red, green, yellow, blue
         ->setGradientStops(0, .5, 1);
 
@@ -36,7 +36,7 @@ it('can make gradient set from multiple sets of colors', function () {
 });
 
 it('will omit additional colors set more than offsets', function () {
-    $generator = new SvgAvatarGenerator();
+    $generator = new SvgAvatarGenerator;
     $generator->setGradientColors(['#FF0000', '#00FF00', '#FFFF00']) // red, green, yellow
         ->setGradientStops(0, 1);
 
@@ -49,7 +49,7 @@ it('will omit additional colors set more than offsets', function () {
 });
 
 it('will repeat last color if set fewer than offsets', function () {
-    $generator = new SvgAvatarGenerator();
+    $generator = new SvgAvatarGenerator;
     $generator->setGradientColors(['#FF0000', '#00FF00'], '#0000FF') // red, green, blue
         ->setGradientStops(0, .5, 1);
 

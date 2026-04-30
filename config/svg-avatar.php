@@ -1,5 +1,9 @@
 <?php
 
+use Sowren\SvgAvatarGenerator\Enums\FontWeight;
+use Sowren\SvgAvatarGenerator\Enums\Shape;
+use Sowren\SvgAvatarGenerator\Extractors\DefaultExtractor;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -31,7 +35,7 @@ return [
     | Allowed: Shape::CIRCLE or Shape::RECTANGLE
     |
     */
-    'shape' => \Sowren\SvgAvatarGenerator\Enums\Shape::CIRCLE,
+    'shape' => Shape::CIRCLE,
 
     /*
     |--------------------------------------------------------------------------
@@ -111,7 +115,7 @@ return [
     |          FontWeight::SEMIBOLD, or FontWeight::BOLD
     |
     */
-    'font_weight' => \Sowren\SvgAvatarGenerator\Enums\FontWeight::SEMIBOLD,
+    'font_weight' => FontWeight::SEMIBOLD,
 
     /*
     |--------------------------------------------------------------------------
@@ -214,7 +218,7 @@ return [
     | Default: Sowren\SvgAvatarGenerator\Extractors\DefaultExtractor::class
     |
     */
-    'extractor' => Sowren\SvgAvatarGenerator\Extractors\DefaultExtractor::class,
+    'extractor' => DefaultExtractor::class,
 
     /*
     |--------------------------------------------------------------------------

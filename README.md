@@ -23,17 +23,24 @@ Well, this one has some subtle but nifty advantages over available packages, her
 
 ## Requirements
 
-| Laravel  | PHP      | SVGAvatarGenerator |
-|----------|----------|:------------------:|
-| >=11.x   | &gt;=8.2 |        2.x         |
-| 9.x-10.x | &gt;=8.1 |        1.x         |
+| Laravel   | PHP      | SVGAvatarGenerator |
+|-----------|----------|:------------------:|
+| &gt;=12.x | &gt;=8.2 |        3.x         |
+| 11.x      | &gt;=8.2 |        2.x         |
+| 9.x-10.x  | &gt;=8.1 |        1.x         |
 
 ## Installation
 
-Install the package via composer:
+Install the package via composer (**Laravel 12 & 13**):
 
 ```bash
-composer require sowrensen/svg-avatar-generator
+composer require sowrensen/svg-avatar-generator:^3.0
+```
+
+**Laravel 11**:
+
+```bash
+composer require sowrensen/svg-avatar-generator:^2.0
 ```
 
 For older versions:
