@@ -37,12 +37,12 @@ use Sowren\SvgAvatarGenerator\SvgAvatarGenerator;
  * @method static \Sowren\SvgAvatarGenerator\Svg render()
  * @method static string toUrl()
  *
- * @see \Sowren\SvgAvatarGenerator\SvgAvatarGenerator
+ * @see SvgAvatarGenerator
  */
 class Svg extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
-        return \Sowren\SvgAvatarGenerator\SvgAvatarGenerator::class;
+        return SvgAvatarGenerator::class;
     }
 }

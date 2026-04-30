@@ -15,7 +15,7 @@ class ConfigValidator
             'corner_radius' => ['int', 'between:0,25'],
             'font_size' => ['int', 'between:10,50'],
             'foreground' => ['hex_color'],
-            'gradient_colors' => [new GradientColorSet()],
+            'gradient_colors' => [new GradientColorSet],
             'gradient_rotation' => ['int', 'between:0,360'],
             'gradient_stops' => ['array'],
             'gradient_stops.*' => ['numeric', 'between:0,1'],
